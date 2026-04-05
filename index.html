@@ -3,14 +3,199 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
   <title>매도신호등 리포트</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111b2d;
+      --panel-2: #16233a;
+      --text: #e8eefc;
+      --muted: #9fb0cf;
+      --accent: #7dd3fc;
+      --ok: #4ade80;
+      --warn: #fbbf24;
+      --line: rgba(255,255,255,.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      background: radial-gradient(circle at top, #152238 0%, var(--bg) 45%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+    header {
+      padding: 28px 24px;
+      background: linear-gradient(180deg, rgba(125, 211, 252, .12), rgba(125, 211, 252, .03));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .25);
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.05;
+    }
+    .lead {
+      margin: 14px 0 0;
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+    }
+    section {
+      margin-top: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      min-height: 220px;
+    }
+    .card h2, .card h3 {
+      margin: 0;
+    }
+    .card h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--ok);
+      box-shadow: 0 0 0 6px rgba(74, 222, 128, .12);
+    }
+    .warn .dot {
+      background: var(--warn);
+      box-shadow: 0 0 0 6px rgba(251, 191, 36, .12);
+    }
+    ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--text);
+    }
+    li + li { margin-top: 8px; }
+    .muted { color: var(--muted); }
+    a { color: var(--accent); }
+    .footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .note {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      background: rgba(125, 211, 252, .08);
+      border-radius: 12px;
+      color: var(--text);
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      header { padding: 22px 18px; }
+      .card { min-height: auto; }
+    }
+  </style>
 </head>
 <body>
-  <h1>매도신호등 리포트</h1>
-  <p>장시작/장종료 리포트를 표시하는 공개 페이지입니다.</p>
-  <ul>
-    <li><a href="https://hoein.notion.site/32d4ed73092881b787cef80c860db5b0">구버전 노션 리포트</a></li>
-    <li><strong>새 리포트는 이 GitHub Pages에 발행</strong></li>
-  </ul>
+  <main>
+    <header>
+      <p class="eyebrow">매도신호등 공식 공개 리포트</p>
+      <h1>장시작 / 장종료 리포트</h1>
+      <p class="lead">
+        이 페이지가 루트입니다. 최신 리포트는 항상 여기서 바로 확인하고,
+        이전 노션은 아카이브용 링크만 남깁니다.
+      </p>
+      <div class="meta">
+        <span class="pill">최신 리포트 우선</span>
+        <span class="pill">공개 페이지 루트</span>
+        <span class="pill">보고 2종만 유지</span>
+      </div>
+    </header>
+
+    <section aria-labelledby="latest-title">
+      <h2 id="latest-title" class="muted" style="margin: 24px 0 0; font-size: 18px;">최신 발행</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="status"><span class="dot"></span>장시작 리포트</div>
+          <h3>오늘 개장 전 점검</h3>
+          <ul>
+            <li>미국장 마감 영향</li>
+            <li>국내 증시 개장 전 핵심 신호</li>
+            <li>장중 체크 포인트</li>
+          </ul>
+          <p class="footer">업데이트 시각: 매 영업일 오전</p>
+        </article>
+
+        <article class="card warn">
+          <div class="status"><span class="dot"></span>장종료 리포트</div>
+          <h3>오늘 마감 요약</h3>
+          <ul>
+            <li>당일 신호 결과 정리</li>
+            <li>상승/하락 요인 요약</li>
+            <li>다음 거래일 준비 메모</li>
+          </ul>
+          <p class="footer">업데이트 시각: 매 영업일 장 마감 후</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="note">
+        이전 노션 리포트는 아카이브입니다. 새 리포트 발행과 앱 연결은 이 루트를 기준으로 진행합니다.
+        <br />
+        아카이브: <a href="https://hoein.notion.site/32d4ed73092881b787cef80c860db5b0">기존 노션 리포트</a>
+      </div>
+    </section>
+
+    <section>
+      <p class="muted" style="margin: 20px 0 0; font-size: 13px;">
+        이 페이지는 GitHub Pages 루트에 두고, 앱의 리포트탭이 이 주소를 직접 엽니다.
+      </p>
+    </section>
+  </main>
 </body>
 </html>
