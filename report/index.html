@@ -33,18 +33,23 @@
       padding: 28px 18px 56px;
     }
     .shell { display: grid; gap: 18px; }
-    .titlebar {
-      padding: 20px 22px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(125,211,252,.08), rgba(255,255,255,.02));
-      box-shadow: 0 18px 60px rgba(0,0,0,.22);
+    .page-header {
+      padding: 0 0 14px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2px;
     }
-    .titlebar h1 {
+    .page-header h1 {
       margin: 0;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.08;
+      font-size: 28px;
+      line-height: 1.2;
       letter-spacing: -0.03em;
+      color: #f6f9ff;
+      font-weight: 700;
+    }
+    .page-header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
     }
     .report {
       border: 1px solid var(--line);
@@ -96,17 +101,19 @@
     .news a:hover { text-decoration: underline; }
     @media (max-width: 700px) {
       main { padding: 14px 12px 40px; }
-      .titlebar, .report-head, .report-body { padding-left: 16px; padding-right: 16px; }
+      .report-head, .report-body { padding-left: 16px; padding-right: 16px; }
       .report-head h2 { font-size: 21px; }
+      .page-header h1 { font-size: 22px; }
     }
   </style>
 </head>
 <body>
 <main>
   <div class="shell">
-    <div class="titlebar">
+    <header class="page-header">
       <h1>데일리 시장 리포트</h1>
-    </div>
+      <p>오늘 실제로 강했던/실패한 테마 · 주도·실패 종목 · 시장 리스크 복기 · 내일 체크포인트</p>
+    </header>
 
     <article class="report">
       <div class="report-head">
