@@ -14,6 +14,7 @@
       --line: rgba(255,255,255,.08);
       --accent: #7dd3fc;
       --accent-2: #a78bfa;
+      --link: #93c5fd;
     }
     * { box-sizing: border-box; }
     body {
@@ -31,10 +32,7 @@
       margin: 0 auto;
       padding: 28px 18px 56px;
     }
-    .shell {
-      display: grid;
-      gap: 18px;
-    }
+    .shell { display: grid; gap: 18px; }
     .titlebar {
       padding: 20px 22px;
       border: 1px solid var(--line);
@@ -79,15 +77,8 @@
       color: var(--accent);
       letter-spacing: -0.01em;
     }
-    p {
-      margin: 0 0 10px;
-      color: var(--text);
-    }
-    ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--text);
-    }
+    p { margin: 0 0 10px; color: var(--text); }
+    ul { margin: 0; padding-left: 20px; color: var(--text); }
     li + li { margin-top: 7px; }
     .section {
       padding: 12px 14px;
@@ -96,17 +87,13 @@
       background: rgba(255,255,255,.03);
     }
     .section + .section { margin-top: 12px; }
-    .section.no-pad { padding-bottom: 8px; }
-    .muted { color: var(--muted); }
-    .spacer { height: 10px; }
     .compact > * + * { margin-top: 6px; }
     .news li { list-style: disc; }
-    .section-title {
-      font-size: 16px;
-      color: #dbe7ff;
-      margin: 0 0 8px;
+    .news a {
+      color: var(--link);
+      text-decoration: none;
     }
-    .bottom-space { margin-bottom: 6px; }
+    .news a:hover { text-decoration: underline; }
     @media (max-width: 700px) {
       main { padding: 14px 12px 40px; }
       .report-head, .report-body, .titlebar { padding-left: 16px; padding-right: 16px; }
@@ -205,11 +192,11 @@
         <h3>관련 뉴스 5개</h3>
         <div class="section">
           <ul class="news">
-            <li>종전 기대감에 찬물 끼얹은 트럼프…韓 등 주요국 증시 하락전환</li>
-            <li>달러-원, 트럼프·이란 '호르무즈 신경전'에 반등…1,513.30원 마감</li>
-            <li>[속보] 급락장에 코스닥 매도 사이드카 발동</li>
-            <li>하나證 "SK하이닉스, 메모리 가격 예상치 상회…목표가 160만원"</li>
-            <li>롤러코스터 환율, 이란전쟁 끝날듯말듯 긴장감에…1510원대 반등</li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=%EC%A2%85%EC%A0%84%20%EA%B8%B0%EB%8C%80%EA%B0%90%EC%97%90%20%EC%B0%AC%EB%AC%BC%20%EB%81%BC%EC%96%B9%EC%9D%80%20%ED%8A%B8%EB%9F%BC%ED%94%84" target="_blank" rel="noopener">종전 기대감에 찬물 끼얹은 트럼프…韓 등 주요국 증시 하락전환</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=%EB%8B%AC%EB%9F%AC-%EC%9B%90%2C%20%ED%8A%B8%EB%9F%BC%ED%94%84%C2%B7%EC%9D%B4%EB%9E%80%20%ED%98%B8%EB%A5%B4%EB%AC%B4%EC%A6%88%20%EC%8B%A0%EA%B2%BD%EC%A0%84%EC%97%90%20%EB%B0%98%EB%93%B1%201%2C513.30%EC%9B%90%20%EB%A7%88%EA%B0%90" target="_blank" rel="noopener">달러-원, 트럼프·이란 '호르무즈 신경전'에 반등…1,513.30원 마감</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=%5B%EC%86%8D%EB%B3%B4%5D%20%EA%B8%89%EB%9D%BD%EC%9E%A5%EC%97%90%20%EC%BD%94%EC%8A%A4%EB%8B%A5%20%EB%A7%A4%EB%8F%84%20%EC%82%AC%EC%9D%B4%EB%93%9C%EC%B9%B4%20%EB%B0%9C%EB%8F%99" target="_blank" rel="noopener">[속보] 급락장에 코스닥 매도 사이드카 발동</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=%ED%95%98%EB%82%98%E8%AD%89%20SK%ED%95%98%EC%9D%B4%EB%8B%89%EC%8A%A4%2C%20%EB%A9%94%EB%AA%A8%EB%A6%AC%20%EA%B0%80%EA%B2%A9%20%EC%98%88%EC%83%81%EC%B9%98%20%EC%83%81%ED%9A%8C%20%EB%AA%A9%ED%91%9C%EA%B0%80%20160%EB%A7%8C%EC%9B%90" target="_blank" rel="noopener">하나證 "SK하이닉스, 메모리 가격 예상치 상회…목표가 160만원"</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=%EB%A1%A4%EB%9F%AC%EC%BD%94%EC%8A%A4%ED%84%B0%20%ED%99%98%EC%9C%A8%2C%20%EC%9D%B4%EB%9E%80%EC%A0%84%EC%9F%81%20%EB%81%9D%EB%82%A0%EB%93%AF%EB%A7%90%EB%93%AF%20%EA%B8%B4%EC%9E%A5%EA%B0%90%EC%97%90%201510%EC%9B%90%EB%8C%80%20%EB%B0%98%EB%93%B1" target="_blank" rel="noopener">롤러코스터 환율, 이란전쟁 끝날듯말듯 긴장감에…1510원대 반등</a></li>
           </ul>
         </div>
       </div>
@@ -266,11 +253,11 @@
         <h3>관련 뉴스 5개</h3>
         <div class="section">
           <ul class="news">
-            <li>Kospi jumps over 8% as hopes grow regarding possible end to Middle East conflict</li>
-            <li>KOSPI, won rise as Trump, Iran signal potential easing of tensions</li>
-            <li>SK Hynix Targets 2026 U.S. ADR Listing</li>
-            <li>Hanwha Aerospace to share K9 platform with Spain’s Indra</li>
-            <li>South Korea manufacturing PMI hits four-year high in March on chip demand</li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=Kospi%20jumps%20over%208%25%20as%20hopes%20grow%20regarding%20possible%20end%20to%20Middle%20East%20conflict" target="_blank" rel="noopener">Kospi jumps over 8% as hopes grow regarding possible end to Middle East conflict</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=KOSPI%2C%20won%20rise%20as%20Trump%2C%20Iran%20signal%20potential%20easing%20of%20tensions" target="_blank" rel="noopener">KOSPI, won rise as Trump, Iran signal potential easing of tensions</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=SK%20Hynix%20Targets%202026%20U.S.%20ADR%20Listing" target="_blank" rel="noopener">SK Hynix Targets 2026 U.S. ADR Listing</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=Hanwha%20Aerospace%20to%20share%20K9%20platform%20with%20Spain%E2%80%99s%20Indra" target="_blank" rel="noopener">Hanwha Aerospace to share K9 platform with Spain’s Indra</a></li>
+            <li><a href="https://search.naver.com/search.naver?where=news&query=South%20Korea%20manufacturing%20PMI%20hits%20four-year%20high%20in%20March%20on%20chip%20demand" target="_blank" rel="noopener">South Korea manufacturing PMI hits four-year high in March on chip demand</a></li>
           </ul>
         </div>
 
@@ -282,14 +269,10 @@
         </div>
 
         <h3>리스크</h3>
-        <div class="section">
-          <div class="spacer"></div>
-        </div>
+        <div class="section"><div style="height:10px"></div></div>
 
         <h3>오늘 운영 포인트</h3>
-        <div class="section">
-          <div class="spacer"></div>
-        </div>
+        <div class="section"><div style="height:10px"></div></div>
       </div>
     </article>
   </div>
