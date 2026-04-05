@@ -3,295 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="dark light" />
-  <title>매도신호등 리포트</title>
+  <title>2026-04-03 장종료 리포트</title>
   <style>
-    :root {
-      --bg: #0b1220;
-      --panel: #111b2d;
-      --panel-2: #16233a;
-      --text: #e8eefc;
-      --muted: #9fb0cf;
-      --accent: #7dd3fc;
-      --ok: #4ade80;
-      --warn: #fbbf24;
-      --line: rgba(255,255,255,.08);
-      --link: #93c5fd;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-      background: radial-gradient(circle at top, #152238 0%, var(--bg) 45%);
-      color: var(--text);
-      line-height: 1.55;
-    }
-    main {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 32px 20px 56px;
-    }
-    header {
-      padding: 28px 24px;
-      background: linear-gradient(180deg, rgba(125, 211, 252, .12), rgba(125, 211, 252, .03));
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, .25);
-    }
-    .eyebrow {
-      color: var(--accent);
-      font-size: 13px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      margin: 0 0 10px;
-      font-weight: 700;
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(30px, 5vw, 52px);
-      line-height: 1.05;
-    }
-    .lead {
-      margin: 14px 0 0;
-      max-width: 72ch;
-      color: var(--muted);
-      font-size: 16px;
-    }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-    .pill {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid var(--line);
-      color: var(--text);
-      font-size: 13px;
-    }
-    section { margin-top: 20px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .card {
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 20px;
-      min-height: 280px;
-    }
-    .card h2, .card h3 { margin: 0; }
-    .card h2 { font-size: 22px; margin-bottom: 8px; }
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--ok);
-      box-shadow: 0 0 0 6px rgba(74, 222, 128, .12);
-    }
-    .warn .dot {
-      background: var(--warn);
-      box-shadow: 0 0 0 6px rgba(251, 191, 36, .12);
-    }
-    .meta-row {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--line);
-      color: var(--text);
-      font-size: 14px;
-    }
-    .meta-row strong {
-      color: var(--accent);
-      font-weight: 700;
-      margin-right: 6px;
-    }
-    .stack {
-      display: grid;
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .subcard {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--line);
-    }
-    .subcard h3 {
-      font-size: 15px;
-      margin-bottom: 8px;
-    }
-    ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text);
-    }
-    li + li { margin-top: 6px; }
-    .muted { color: var(--muted); }
-    a { color: var(--link); }
-    .news-list {
-      display: grid;
-      gap: 8px;
-      margin-top: 0;
-    }
-    .news-list li { margin-top: 0; }
-    .footer {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .full-width {
-      margin-top: 16px;
-      min-height: auto;
-    }
-    @media (max-width: 840px) {
-      .grid { grid-template-columns: 1fr; }
-      header { padding: 22px 18px; }
-      .card { min-height: auto; }
-    }
+    body { margin: 0; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif; background: #fff; color: #111; }
+    pre { margin: 0; white-space: pre-wrap; word-break: keep-all; font: inherit; }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <p class="eyebrow">매도신호등 공식 공개 리포트</p>
-      <h1>장시작 / 장종료 리포트 템플릿</h1>
-      <p class="lead">
-        이 페이지는 장시작과 장종료 리포트의 공개용 템플릿입니다.
-        최신 발행본은 항상 동일한 구조를 유지하고, 내용만 날짜별로 갱신합니다.
-      </p>
-      <div class="meta">
-        <span class="pill">최신 업데이트 우선</span>
-        <span class="pill">장시작 / 장종료 2종 유지</span>
-        <span class="pill">공개 페이지 전용</span>
-      </div>
-    </header>
+<pre># 2026-04-03 장종료 리포트
 
-    <section aria-labelledby="latest-title">
-      <h2 id="latest-title" class="muted" style="margin: 24px 0 0; font-size: 18px;">최신 발행 메타</h2>
-      <div class="grid">
-        <article class="card">
-          <div class="status"><span class="dot"></span>장시작 리포트</div>
-          <h2>예정 업데이트 시각: 08:30</h2>
-          <div class="meta-row">
-            <div><strong>실제 업데이트 일시</strong> YYYY-MM-DD HH:MM KST</div>
-            <div><strong>상태</strong> 발행 전 / 발행 완료 / 수정 반영</div>
-          </div>
-          <div class="stack">
-            <div class="subcard">
-              <h3>1) 오늘 핵심 테마</h3>
-              <ul>
-                <li>당일 시장의 가장 중요한 흐름을 한 줄로 정리</li>
-                <li>장 시작 전 집중해야 할 방향성만 적기</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>2) 후보 종목</h3>
-              <ul>
-                <li>종목명 / 핵심 근거 / 기대 방향</li>
-                <li>근거 뉴스는 총 5개만, 제목 클릭 시 원문 이동</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>3) 제외 종목</h3>
-              <ul>
-                <li>장 초반 제외해야 할 종목과 이유</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>4) 리스크</h3>
-              <ul>
-                <li>지수, 수급, 이벤트, 변동성 위험</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>5) 오늘 운영 포인트</h3>
-              <ul>
-                <li>시초 / 눌림 / 추세 전개 중 우선순위</li>
-              </ul>
-            </div>
-          </div>
-          <p class="footer">뉴스는 각 항목에 원문 링크를 달아 5개만 유지</p>
-        </article>
+## 오늘 시장 한줄 요약
+오늘 장은 마감 시점의 수급과 업종별 강도, 주요 뉴스 반영 여부를 기준으로 정리할 필요가 있다.
 
-        <article class="card warn">
-          <div class="status"><span class="dot"></span>장종료 리포트</div>
-          <h2>예정 업데이트 시각: 15:30</h2>
-          <div class="meta-row">
-            <div><strong>실제 업데이트 일시</strong> YYYY-MM-DD HH:MM KST</div>
-            <div><strong>상태</strong> 발행 전 / 발행 완료 / 수정 반영</div>
-          </div>
-          <div class="stack">
-            <div class="subcard">
-              <h3>1) 오늘 실제로 강했던 테마</h3>
-              <ul>
-                <li>시장 반응이 좋았던 섹터와 이유</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>2) 실패한 테마 / 주도 종목</h3>
-              <ul>
-                <li>기대 대비 약했던 흐름</li>
-                <li>주도 종목과 실패 종목 비교</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>3) 시장 리스크 복기</h3>
-              <ul>
-                <li>장중 변동성, 수급 왜곡, 뉴스 영향</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>4) 내일 체크포인트</h3>
-              <ul>
-                <li>다음 거래일에 이어볼 핵심 관찰 포인트</li>
-              </ul>
-            </div>
-            <div class="subcard">
-              <h3>5) 관련 뉴스 5개</h3>
-              <ul class="news-list">
-                <li><a href="#">뉴스 제목 1</a> <span class="muted">— 원문 링크</span></li>
-                <li><a href="#">뉴스 제목 2</a> <span class="muted">— 원문 링크</span></li>
-                <li><a href="#">뉴스 제목 3</a> <span class="muted">— 원문 링크</span></li>
-                <li><a href="#">뉴스 제목 4</a> <span class="muted">— 원문 링크</span></li>
-                <li><a href="#">뉴스 제목 5</a> <span class="muted">— 원문 링크</span></li>
-              </ul>
-            </div>
-          </div>
-          <p class="footer">장종료 리포트는 실제 강/약세 복기 중심으로 유지</p>
-        </article>
-      </div>
-    </section>
+## 핵심 관찰
+- 지수 흐름: 장중 변동성과 마감 강약을 함께 확인해 정리 필요
+- 업종 흐름: 강했던 업종과 되돌림이 나온 업종을 구분해 적기
+- 종목 흐름: 시세 추종이 아니라 거래대금과 종가 유지력을 우선 확인
 
-    <section>
-      <article class="card full-width">
-        <div class="status"><span class="dot"></span>공통 규칙</div>
-        <h2>항상 유지되는 공개 리포트 규칙</h2>
-        <ul style="margin-top: 14px;">
-          <li>장시작 / 장종료 두 종류만 공개</li>
-          <li>가장 최근 업데이트가 항상 상단 기준</li>
-          <li>각 리포트는 예정 시각과 실제 업데이트 시각을 함께 표기</li>
-          <li>작성 톤은 일반 독자가 바로 이해할 수 있게 유지</li>
-          <li>근거 뉴스는 각 리포트당 5개만 유지</li>
-        </ul>
-      </article>
-    </section>
-  </main>
+## 주목할 포인트
+- 장 막판에 힘이 유지된 테마
+- 재료가 있었지만 마감까지 연결되지 못한 테마
+- 다음 거래일에 이어서 볼 수 있는 가격대와 거래량 구간
+
+## 리스크 체크
+- 단기 급등 뒤 마감 약세가 나온 구간은 다음 날 변동성 확대 가능
+- 지수보다 종목 수급이 먼저 꺾인 구간은 추적 신호가 약해질 수 있음
+- 외부 뉴스 반영이 끝난 뒤에는 추격보다 확인이 우선
+
+## 내일 확인할 항목
+- 장초반에 다시 붙는 테마가 있는지
+- 마감 강세가 장중 재현되는지
+- 거래대금이 유지되는 종목이 있는지
+
+## 발행 전 확인 필요
+이 초안은 현재 시점의 원문 검증과 출처 정리 전 단계다. 공개 발행 전에는 최신 시장 뉴스, 장중 수급, 종가 데이터가 반영된 최종 문장으로 다시 정리해야 한다.</pre>
 </body>
 </html>
