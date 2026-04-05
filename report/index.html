@@ -32,36 +32,38 @@
       margin: 0 auto;
       padding: 28px 18px 56px;
     }
-    .page-header {
-      margin: 0 0 22px;
-      padding: 0 0 14px;
-      border-bottom: 1px solid var(--line);
+    .shell { display: grid; gap: 18px; }
+    .titlebar {
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(125,211,252,.08), rgba(255,255,255,.02));
+      box-shadow: 0 18px 60px rgba(0,0,0,.22);
     }
-    .page-header h1 {
+    .titlebar h1 {
       margin: 0;
-      font-size: 28px;
-      line-height: 1.2;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
       letter-spacing: -0.03em;
-      color: #f6f9ff;
     }
-    .page-header p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .shell { display: grid; gap: 28px; }
     .report {
-      border-top: 1px solid var(--line);
-      background: transparent;
-      box-shadow: none;
-      overflow: visible;
-      padding-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      box-shadow: 0 18px 60px rgba(0,0,0,.22);
+      overflow: hidden;
     }
-    .report:first-child {
-      border-top: 0;
-      padding-top: 0;
+    .report-head {
+      padding: 22px 22px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
     }
-    .report-body { padding: 0; }
+    .report-head h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+    .report-body { padding: 16px 22px 22px; }
     h3 {
       margin: 18px 0 10px;
       font-size: 18px;
@@ -94,18 +96,22 @@
     .news a:hover { text-decoration: underline; }
     @media (max-width: 700px) {
       main { padding: 14px 12px 40px; }
-      .report-body { padding-left: 16px; padding-right: 16px; }
+      .titlebar, .report-head, .report-body { padding-left: 16px; padding-right: 16px; }
+      .report-head h2 { font-size: 21px; }
     }
   </style>
 </head>
 <body>
 <main>
-  <header class="page-header">
-    <h1>데일리 시장 리포트</h1>
-    <p>오늘 실제로 강했던/실패한 테마 · 주도·실패 종목 · 시장 리스크 복기 · 내일 체크포인트</p>
-  </header>
   <div class="shell">
+    <div class="titlebar">
+      <h1>데일리 시장 리포트</h1>
+    </div>
+
     <article class="report">
+      <div class="report-head">
+        <h2>2026-04-02 장종료 리포트</h2>
+      </div>
       <div class="report-body compact">
         <div class="section">
           <h4>1) 강했던 테마: 전쟁 완화 기대가 살아 있는 동안의 방산 방어력</h4>
