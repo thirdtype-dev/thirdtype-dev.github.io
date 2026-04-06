@@ -1,0 +1,28 @@
+name: validate-report
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'report/index.html'
+      - 'scripts/trim_latest_reports.py'
+      - 'scripts/publish_report.sh'
+      - '.github/workflows/validate-report.yml'
+  pull_request:
+    paths:
+      - 'report/index.html'
+      - 'scripts/trim_latest_reports.py'
+      - 'scripts/publish_report.sh'
+      - '.github/workflows/validate-report.yml'
+
+jobs:
+  validate-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate report section count
+        run: |
+          python3 scripts/trim_latest_reports.py --check report/index.html
