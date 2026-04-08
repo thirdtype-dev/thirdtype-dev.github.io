@@ -3,7 +3,15 @@ set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
 REPORT_HTML="$ROOT_DIR/report/index.html"
+HERMES_AGENT_ROOT="${HERMES_AGENT_ROOT:-/Users/thirdtype/.hermes/hermes-agent}"
+RENDERER="$HERMES_AGENT_ROOT/website/scripts/render_report.py"
 
+if [[ ! -f "$RENDERER" ]]; then
+  echo "Missing renderer: $RENDERER" >&2
+  exit 1
+fi
+
+python3 "$RENDERER" --output "$REPORT_HTML"
 python3 "$ROOT_DIR/scripts/trim_latest_reports.py" "$REPORT_HTML"
 
 git -C "$ROOT_DIR" add report/index.html
