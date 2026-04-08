@@ -27,7 +27,7 @@
     .report {
       border: 1px solid #2b3446;
       border-radius: 20px;
-      padding: 24px 28px 14px;
+      padding: 24px 28px 16px;
       box-shadow: 0 18px 40px rgba(0,0,0,.24);
       margin-bottom: 18px;
       background: #202634;
@@ -63,6 +63,46 @@
     code { background: #111827; padding: 0 4px; border-radius: 4px; }
     a { color: #93c5fd; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    .news-section {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid #2b3446;
+    }
+    .news-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .news-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #1a2130;
+      border: 1px solid #2b3446;
+    }
+    .news-link {
+      color: #bfdbfe;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .news-link:hover { text-decoration: underline; }
+    .news-source {
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+    .disclaimer {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      background: #111827;
+      color: #cbd5e1;
+      font-size: 0.92rem;
+    }
 
     </style>
   </head>
@@ -98,6 +138,7 @@
 <li>장중 거래대금 상위 종목의 재료 지속성</li>
 <li>개장 초반 지수 및 선물 흐름 확인</li>
 </ul>
+<section class="news-section"><h2>주요 뉴스</h2><ul class="news-list"><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%E7%BE%8E%C2%B7%EC%9D%B4%EB%9E%80+%ED%98%91%EC%83%81+%EA%B8%B0%EB%8C%80%EC%97%90+%EC%9C%A0%EA%B0%80%E2%86%93+%EC%BD%94%EC%8A%A4%ED%94%BC+%EC%83%81%EC%8A%B9&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">美·이란 협상 기대에 유가↓ 코스피 상승</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EB%8B%A4%EC%9A%B0+%ED%9D%90%EB%A6%84+%EC%86%8D+%EB%89%B4%EC%9A%95%EC%A6%9D%EC%8B%9C+%EB%B3%80%EB%8F%99%EC%84%B1+%EC%A0%90%EA%B2%80&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">다우 흐름 속 뉴욕증시 변동성 점검</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EC%99%B8%EA%B5%AD%EC%9D%B8%C2%B7%EA%B8%B0%EA%B4%80+%EC%88%98%EA%B8%89+%EC%A0%84%ED%99%98+%EC%97%85%EC%A2%85+%ED%99%95%EB%8C%80+%EC%97%AC%EB%B6%80&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">외국인·기관 수급 전환 업종 확대 여부</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EC%BD%94%EC%8A%A4%ED%94%BC+%EA%B1%B0%EB%9E%98%EB%8C%80%EA%B8%88+%ED%99%95%EB%8C%80%EC%99%80+%EB%8C%80%ED%98%95%EC%A3%BC+%EC%A4%91%EC%8B%AC+%EB%A7%A4%EC%88%98%EC%84%B8&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">코스피 거래대금 확대와 대형주 중심 매수세</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EC%BD%94%EC%8A%A4%EB%8B%A5+1%25%EB%8C%80+%EC%83%81%EC%8A%B9%2C+%EC%A4%91%EC%86%8C%ED%98%95%EC%A3%BC+%ED%99%95%EC%82%B0+%ED%99%95%EC%9D%B8&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">코스닥 1%대 상승, 중소형주 확산 확인</a><span class="news-source">연합뉴스</span></li></ul></section>
     </article>
     <article class="report">
       <div class="eyebrow draft">장 시작</div>
@@ -129,7 +170,9 @@
 <li>10:00 전후: 주도 업종 1차 압축</li>
 <li>11:00 전후: 오전장 고점/저점 재시험 여부 점검</li>
 </ul>
+<section class="news-section"><h2>주요 뉴스</h2><ul class="news-list"><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%E7%BE%8E%C2%B7%EC%9D%B4%EB%9E%80+%ED%98%91%EC%83%81+%EA%B8%B0%EB%8C%80%EC%97%90+%EC%9C%A0%EA%B0%80%E2%86%93+%EC%BD%94%EC%8A%A4%ED%94%BC+%EC%83%81%EC%8A%B9&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">美·이란 협상 기대에 유가↓ 코스피 상승</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EB%8B%A4%EC%9A%B0+%ED%9D%90%EB%A6%84+%EC%86%8D+%EB%89%B4%EC%9A%95%EC%A6%9D%EC%8B%9C+%EB%B3%80%EB%8F%99%EC%84%B1+%EC%A0%90%EA%B2%80&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">다우 흐름 속 뉴욕증시 변동성 점검</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EC%99%B8%EA%B5%AD%EC%9D%B8%C2%B7%EA%B8%B0%EA%B4%80+%EC%88%98%EA%B8%89+%EC%A0%84%ED%99%98+%EC%97%85%EC%A2%85+%ED%99%95%EB%8C%80+%EC%97%AC%EB%B6%80&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">외국인·기관 수급 전환 업종 확대 여부</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EC%BD%94%EC%8A%A4%ED%94%BC+%EA%B1%B0%EB%9E%98%EB%8C%80%EA%B8%88+%ED%99%95%EB%8C%80%EC%99%80+%EB%8C%80%ED%98%95%EC%A3%BC+%EC%A4%91%EC%8B%AC+%EB%A7%A4%EC%88%98%EC%84%B8&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">코스피 거래대금 확대와 대형주 중심 매수세</a><span class="news-source">연합뉴스</span></li><li class="news-item"><a class="news-link" href="https://news.google.com/search?q=%EC%BD%94%EC%8A%A4%EB%8B%A5+1%25%EB%8C%80+%EC%83%81%EC%8A%B9%2C+%EC%A4%91%EC%86%8C%ED%98%95%EC%A3%BC+%ED%99%95%EC%82%B0+%ED%99%95%EC%9D%B8&hl=ko&gl=KR&ceid=KR:ko" target="_blank" rel="noopener">코스닥 1%대 상승, 중소형주 확산 확인</a><span class="news-source">연합뉴스</span></li></ul></section>
     </article>
+      <section class="disclaimer">본 서비스의 투자 정보는 단순 참고용이며, 종목 추천이나 투자 권유가 아닙니다. 최종적인 투자 결정과 그에 따른 책임은 투자자 본인에게 있음을 알려드립니다</section>
     </main>
   </body>
 </html>
