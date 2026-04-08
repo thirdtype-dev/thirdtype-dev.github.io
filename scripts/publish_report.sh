@@ -11,10 +11,11 @@ if [[ ! -f "$RENDERER" ]]; then
   exit 1
 fi
 
+rm -rf "$ROOT_DIR/report/articles"
 python3 "$RENDERER" --output "$REPORT_HTML"
 python3 "$ROOT_DIR/scripts/trim_latest_reports.py" "$REPORT_HTML"
 
-git -C "$ROOT_DIR" add report/index.html
+git -C "$ROOT_DIR" add report
 
 git -C "$ROOT_DIR" commit -m "Publish latest two reports" || {
   echo "No changes to commit."
