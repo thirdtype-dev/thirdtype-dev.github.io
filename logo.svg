@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Thirdtype Logo</title>
+  <desc id="desc">A simple blue square logo with a white T mark and Thirdtype label.</desc>
+  <rect width="512" height="512" rx="96" fill="#1d4ed8" />
+  <path d="M128 140h256v56H284v176h-56V196H128z" fill="#ffffff" />
+  <rect x="96" y="396" width="320" height="20" rx="10" fill="#93c5fd" />
+</svg>
