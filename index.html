@@ -4,19 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-adsense-account" content="ca-pub-3518959293552717">
-  <title>Thirdtype Links</title>
+  <title>슬기로운 생활</title>
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #08101d;
-      --panel: rgba(15, 23, 42, 0.92);
-      --panel-2: rgba(22, 33, 52, 0.92);
-      --line: rgba(148, 163, 184, 0.2);
-      --text: #eef5ff;
-      --muted: #aab8cc;
-      --accent: #7dd3fc;
-      --accent-2: #49d19a;
-      --shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --paper: #ffffff;
+      --ink: #17181c;
+      --muted: #5b6270;
+      --line: #e4e7ee;
+      --accent: #111827;
     }
 
     * {
@@ -25,67 +22,37 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: "Pretendard", "SUIT", "IBM Plex Sans KR", "Apple SD Gothic Neo", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 0%, rgba(125, 211, 252, 0.18), transparent 28rem),
-        radial-gradient(circle at 88% 8%, rgba(73, 209, 154, 0.15), transparent 24rem),
-        linear-gradient(150deg, #08101d 0%, #111a2b 44%, #17243a 100%);
+      background: linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      line-height: 1.7;
     }
 
     main {
-      width: min(1040px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 32px 0 48px;
-    }
-
-    .hero,
-    .section {
+      width: min(860px, calc(100% - 32px));
+      margin: 40px auto;
+      padding: 42px;
+      background: var(--paper);
       border: 1px solid var(--line);
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
-        var(--panel);
-      box-shadow: var(--shadow);
+      border-radius: 20px;
+      box-shadow: 0 18px 48px rgba(17, 24, 39, 0.08);
     }
 
-    .hero {
-      padding: 28px;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(125, 211, 252, 0.14);
-      color: #d8f2ff;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    h1,
+    h2 {
+      margin: 0;
+      line-height: 1.25;
     }
 
     h1 {
-      margin: 14px 0 10px;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.06em;
-    }
-
-    .section {
-      padding: 24px;
-      margin-top: 18px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
-        var(--panel-2);
+      font-size: 34px;
+      margin-bottom: 28px;
     }
 
     h2 {
-      margin: 0 0 14px;
-      font-size: 1.2rem;
-      letter-spacing: -0.03em;
+      font-size: 22px;
+      margin-top: 32px;
+      margin-bottom: 14px;
     }
 
     .list {
@@ -97,71 +64,45 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 12px;
-      padding: 18px;
+      padding: 16px 18px;
       border: 1px solid var(--line);
-      border-radius: 20px;
-      background: rgba(8, 16, 29, 0.46);
+      border-radius: 14px;
+      background: #fbfcff;
+      flex-wrap: wrap;
     }
 
     .item strong {
-      font-size: 1rem;
-      letter-spacing: -0.03em;
+      font-size: 16px;
     }
 
-    .meta {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.94rem;
-      line-height: 1.6;
-    }
-
-    .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: auto;
-    }
-
-    a.button,
-    a.text-link {
-      text-decoration: none;
+    a {
+      color: var(--accent);
       font-weight: 700;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
     }
 
-    a.button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 0 14px;
-      border-radius: 999px;
-      color: #07111e;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    }
-
-    a.text-link {
-      color: #d8f2ff;
-    }
-
-    footer {
-      margin-top: 18px;
+    .footnote {
+      margin-top: 28px;
       color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
+      font-size: 14px;
     }
 
     @media (max-width: 640px) {
       main {
-        width: min(100% - 20px, 1040px);
-        padding-top: 16px;
+        width: min(100% - 20px, 860px);
+        margin: 10px auto;
+        padding: 26px 20px;
+        border-radius: 14px;
       }
 
-      .hero,
-      .section {
-        padding: 18px;
-        border-radius: 22px;
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 20px;
       }
 
       .item {
@@ -172,59 +113,43 @@
 </head>
 <body>
   <main>
-    <section class="hero">
-      <h1>슬기로운 생활</h1>
+    <h1>슬기로운 생활</h1>
+
+    <h2>Google Play</h2>
+    <section class="list">
+      <article class="item">
+        <strong>오늘내일모레</strong>
+        <a href="https://play.google.com/store/apps/details?id=com.thirdtype.ttcal">Google Play</a>
+      </article>
+      <article class="item">
+        <strong>주식 매도신호등</strong>
+        <a href="https://play.google.com/store/apps/details?id=com.maedo.signal">Google Play</a>
+      </article>
+      <article class="item">
+        <strong>Retro Timestamp</strong>
+        <a href="https://play.google.com/store/apps/details?id=com.thirdtype.retrotimestamp">Google Play</a>
+      </article>
     </section>
 
-    <section class="section">
-      <h2>Google Play</h2>
-      <div class="list">
-        <article class="item">
-          <strong>오늘내일모레</strong>
-          <div class="link-row">
-            <a class="text-link" href="https://play.google.com/store/apps/details?id=com.thirdtype.ttcal">Google Play</a>
-          </div>
-        </article>
-        <article class="item">
-          <strong>주식 매도신호등</strong>
-          <div class="link-row">
-            <a class="text-link" href="https://play.google.com/store/apps/details?id=com.maedo.signal">Google Play</a>
-          </div>
-        </article>
-        <article class="item">
-          <strong>Retro Timestamp</strong>
-          <div class="link-row">
-            <a class="text-link" href="https://play.google.com/store/apps/details?id=com.thirdtype.retrotimestamp">Google Play</a>
-          </div>
-        </article>
-      </div>
+    <h2>개인정보처리방침</h2>
+    <section class="list">
+      <article class="item">
+        <strong>오늘내일모레</strong>
+        <a href="/ttcal/privacy-policy.html">/ttcal/privacy-policy.html</a>
+      </article>
+      <article class="item">
+        <strong>주식 매도신호등</strong>
+        <a href="/maedo-signal/privacy-policy.html">/maedo-signal/privacy-policy.html</a>
+      </article>
+      <article class="item">
+        <strong>Retro Timestamp</strong>
+        <a href="/retro-timestamp/privacy-policy.html">/retro-timestamp/privacy-policy.html</a>
+      </article>
     </section>
 
-    <section class="section">
-      <h2>개인정보처리방침</h2>
-      <div class="list">
-        <article class="item">
-          <strong>오늘내일모레</strong>
-          <div class="link-row">
-            <a class="text-link" href="/ttcal/privacy-policy.html">/ttcal/privacy-policy.html</a>
-          </div>
-        </article>
-        <article class="item">
-          <strong>주식 매도신호등</strong>
-          <div class="link-row">
-            <a class="text-link" href="/privacy-policy.html">/privacy-policy.html</a>
-          </div>
-        </article>
-        <article class="item">
-          <strong>Retro Timestamp</strong>
-          <div class="link-row">
-            <a class="text-link" href="https://gist.githubusercontent.com/thirdtype-dev/ecb0b9655ab0c8f83f1e45f2513bde0d/raw/aee1f98ba7e94214c64815c03deef1d17da5b88e/privacy-policy.html">privacy-policy.html</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <footer>Thirdtype Public Links</footer>
+    <p class="footnote">
+      광고 소유 인증 파일은 규격상 루트의 <a href="/app-ads.txt">/app-ads.txt</a>와 <a href="/ads.txt">/ads.txt</a>에 평문으로 유지됩니다.
+    </p>
   </main>
 </body>
 </html>
