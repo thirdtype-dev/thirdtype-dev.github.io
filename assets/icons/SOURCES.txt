@@ -1,0 +1,7 @@
+# Authoritative icon sources from STS-001-r1 (downloaded 2026-08-05)
+carrotcard.webp https://play-lh.googleusercontent.com/KW8eiR-cu2OT6Ue2kKwp6RTRQeSvHfMyoJe2M6_OV4Pu2IlNts7oyX3bRRCMquidOaZbP5TRlJ3ygYYkwX0drTI=w240-h480-rw
+maedo-signal.webp https://play-lh.googleusercontent.com/pb-nduXpI0f-7KWiECLt4RR1-I9gzxee4nCUOi5lM_Wfmn48AkI6ZdOC8jD1yBLAU7Qhzv9t-55JQq89NNVp-A=w240-h480-rw
+gps-speed-go.webp https://play-lh.googleusercontent.com/ZkOdcdF8zQtCQuVcHIOwhZ6C4F2Rc3a3ssRZ1E2uOqQhg4wAcdiVGcoyTxFytBNoG-sfGhv5yFOEqUb0VRCScw=w240-h480-rw
+ttcal.webp https://play-lh.googleusercontent.com/Qf1NLVYxtDQpJgG28PdKZ5rk7bNt6tlm6Dl3xqPpgmMcvJrr7BaPiA7X2fju_Y7uSwAUIohBHSekOliVAFBs=w240-h480-rw
+retro-timestamp.webp https://play-lh.googleusercontent.com/j22030mfE5K1vvlhRJA0g80YJ3yHq6dDmfw4sepgR4VK-hu-TgaEuNuqm7GuPX_3BHLlNS0R1MNhZFa0KfBCv1I=w240-h480-rw
+motion-ease.webp https://play-lh.googleusercontent.com/y_wWSGO1nn3Bg2d64hwMLNir0wqvkEZTcTAaM5fGR0y3--HCL8C_-r6f8iywB09vC9pXCtIHAQTX3JOPy83H-A=w240-h480-rw

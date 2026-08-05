@@ -1,151 +1,173 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="google-adsense-account" content="ca-pub-3518959293552717">
-  <title>슬기로운 생활</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f5f7fb;
-      --paper: #ffffff;
-      --ink: #17181c;
-      --muted: #5b6270;
-      --line: #e4e7ee;
-      --accent: #111827;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
-      color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-      line-height: 1.7;
-    }
-
-    main {
-      width: min(860px, calc(100% - 32px));
-      margin: 40px auto;
-      padding: 42px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      box-shadow: 0 18px 48px rgba(17, 24, 39, 0.08);
-    }
-
-    h1,
-    h2 {
-      margin: 0;
-      line-height: 1.25;
-    }
-
-    h1 {
-      font-size: 34px;
-      margin-bottom: 28px;
-    }
-
-    h2 {
-      font-size: 22px;
-      margin-top: 32px;
-      margin-bottom: 14px;
-    }
-
-    .list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fbfcff;
-      flex-wrap: wrap;
-    }
-
-    .item strong {
-      font-size: 16px;
-    }
-
-    a {
-      color: var(--accent);
-      font-weight: 700;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-    }
-
-    .footnote {
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    @media (max-width: 640px) {
-      main {
-        width: min(100% - 20px, 860px);
-        margin: 10px auto;
-        padding: 26px 20px;
-        border-radius: 14px;
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-adsense-account" content="ca-pub-3518959293552717">
+    <title>슬기로운 생활 — 생활의 작은 불편을 더 나은 앱으로</title>
+    <meta name="description" content="슬기로운 생활은 생활의 작은 불편을 덜어주는 Android와 iPhone 앱을 만듭니다. 총명함, GPS Speed Go, 오늘내일모레 등 여섯 가지 앱을 만나보세요.">
+    <link rel="canonical" href="https://www.thirdtype.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="슬기로운 생활">
+    <meta property="og:title" content="슬기로운 생활 — 생활의 작은 불편을 더 나은 앱으로">
+    <meta property="og:description" content="생활의 작은 불편을 덜어주는 여섯 가지 앱을 소개합니다.">
+    <meta property="og:url" content="https://www.thirdtype.net/">
+    <meta property="og:image" content="https://www.thirdtype.net/assets/og.png">
+    <meta property="og:image:width" content="1730">
+    <meta property="og:image:height" content="909">
+    <meta property="og:image:alt" content="슬기로운 생활의 앱 포트폴리오를 소개하는 소셜 미리보기 이미지">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="슬기로운 생활 — 생활의 작은 불편을 더 나은 앱으로">
+    <meta name="twitter:description" content="생활의 작은 불편을 덜어주는 여섯 가지 앱을 소개합니다.">
+    <meta name="twitter:image" content="https://www.thirdtype.net/assets/og.png">
+    <meta name="twitter:image:alt" content="슬기로운 생활의 앱 포트폴리오를 소개하는 소셜 미리보기 이미지">
+    <link rel="stylesheet" href="assets/site.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "슬기로운 생활",
+        "legalName": "슬기로운 생활",
+        "url": "https://www.thirdtype.net/",
+        "email": "thirdtype@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "서울특별시 강동구 성내로6나길 7, 303호",
+          "addressCountry": "KR"
+        }
       }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">본문으로 건너뛰기</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="슬기로운 생활 홈">
+        <span class="brand-mark" aria-hidden="true">슬생</span>
+        <span>슬기로운 생활</span>
+      </a>
+      <nav class="header-nav" aria-label="주요 메뉴">
+        <a href="#apps">앱 둘러보기</a>
+        <a href="#contact" class="nav-cta">연락처</a>
+      </nav>
+    </header>
 
-      h1 {
-        font-size: 28px;
-      }
+    <main id="content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Thirdtype · everyday utilities</p>
+          <h1 id="hero-title">생활의 작은 불편을 더 나은 앱으로.</h1>
+          <p>슬기로운 생활은 필요한 순간에 바로 쓸 수 있는 작고 분명한 도구를 만듭니다. 지금 공개된 여섯 가지 앱을 한곳에서 살펴보세요.</p>
+        </div>
+        <aside class="hero-aside" aria-label="앱 포트폴리오 소개">
+          <strong>필요한 기능만, 가볍게</strong>
+          <p>기록, 시간, 이동, 일상의 감각을 위한 앱을 Android와 iPhone에 맞춰 선보이고 있습니다.</p>
+        </aside>
+      </section>
 
-      h2 {
-        font-size: 20px;
-      }
+      <section class="section" id="apps" aria-labelledby="apps-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Our apps</p>
+            <h2 id="apps-title">오늘의 생활에<br>바로 닿는 도구</h2>
+          </div>
+          <p>각 앱의 상세 페이지에서 기능과 공식 스토어 링크를 확인할 수 있습니다.</p>
+        </div>
 
-      .item {
-        align-items: flex-start;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>슬기로운 생활</h1>
+        <div class="app-grid">
+          <article class="app-card">
+            <div class="app-card-top">
+              <div class="app-icon"><span class="app-icon-fallback" aria-hidden="true">총</span><img src="assets/icons/carrotcard.webp" alt="총명함 앱 아이콘"></div>
+              <span class="platform-label">Android · iPhone</span>
+            </div>
+            <h3>총명함</h3>
+            <p>명함을 스캔해 정리하고, 회사 근처에서 다시 알려주는 기록 도구입니다.</p>
+            <div class="store-actions"><a class="store-button" href="https://play.google.com/store/apps/details?id=com.thirdtype.carrotcard" target="_blank" rel="noopener noreferrer">Google Play</a><a class="store-button secondary" href="https://apps.apple.com/kr/app/id6787031350" target="_blank" rel="noopener noreferrer">App Store</a></div>
+            <a class="app-card-link" href="apps/carrotcard/">앱 자세히 보기 <span aria-hidden="true">→</span></a>
+          </article>
 
-    <h2>Google Play</h2>
-    <section class="list">
-      <article class="item">
-        <strong>오늘내일모레</strong>
-        <a href="https://play.google.com/store/apps/details?id=com.thirdtype.ttcal">Google Play</a>
-      </article>
-      <article class="item">
-        <strong>주식 매도신호등</strong>
-        <a href="https://play.google.com/store/apps/details?id=com.maedo.signal">Google Play</a>
-      </article>
-      <article class="item">
-        <strong>Retro Timestamp</strong>
-        <a href="https://play.google.com/store/apps/details?id=com.thirdtype.retrotimestamp">Google Play</a>
-      </article>
-    </section>
+          <article class="app-card">
+            <div class="app-card-top">
+              <div class="app-icon"><span class="app-icon-fallback" aria-hidden="true">매도</span><img src="assets/icons/maedo-signal.webp" alt="주식 매도신호등 앱 아이콘"></div>
+              <span class="platform-label">Android</span>
+            </div>
+            <h3>주식 매도신호등</h3>
+            <p>장 시작 전 일곱 가지 위험 지표를 신호등 색으로 요약합니다.</p>
+            <div class="store-actions"><a class="store-button" href="https://play.google.com/store/apps/details?id=com.maedo.signal" target="_blank" rel="noopener noreferrer">Google Play</a></div>
+            <a class="app-card-link" href="apps/maedo-signal/">앱 자세히 보기 <span aria-hidden="true">→</span></a>
+          </article>
 
-    <h2>개인정보처리방침</h2>
-    <section class="list">
-      <article class="item">
-        <strong>주식 매도신호등</strong>
-        <a href="/privacy-policy/maedo-signal.html">/privacy-policy/maedo-signal.html</a>
-      </article>
-      <article class="item">
-        <strong>Retro Timestamp</strong>
-        <a href="/privacy-policy/retro-timestamp.html">/privacy-policy/retro-timestamp.html</a>
-      </article>
-    </section>
+          <article class="app-card">
+            <div class="app-card-top">
+              <div class="app-icon"><span class="app-icon-fallback" aria-hidden="true">GPS</span><img src="assets/icons/gps-speed-go.webp" alt="GPS Speed Go 앱 아이콘"></div>
+              <span class="platform-label">Android · iPhone</span>
+            </div>
+            <h3>GPS Speed Go</h3>
+            <p>인터넷 연결 없이도 현재 속도를 크게 보여주는 GPS 속도계입니다.</p>
+            <div class="store-actions"><a class="store-button" href="https://play.google.com/store/apps/details?id=com.thirdtype.gpsspeed" target="_blank" rel="noopener noreferrer">Google Play</a><a class="store-button secondary" href="https://apps.apple.com/kr/app/gps-speed-go/id6789569473" target="_blank" rel="noopener noreferrer">App Store</a></div>
+            <a class="app-card-link" href="apps/gps-speed-go/">앱 자세히 보기 <span aria-hidden="true">→</span></a>
+          </article>
 
-    <p class="footnote">
-      광고 소유 인증 파일은 규격상 루트의 <a href="/app-ads.txt">/app-ads.txt</a>와 <a href="/ads.txt">/ads.txt</a>에 평문으로 유지됩니다.
-    </p>
-  </main>
-</body>
+          <article class="app-card">
+            <div class="app-card-top">
+              <div class="app-icon"><span class="app-icon-fallback" aria-hidden="true">3일</span><img src="assets/icons/ttcal.webp" alt="오늘내일모레 앱 아이콘"></div>
+              <span class="platform-label">Android · iPhone</span>
+            </div>
+            <h3>오늘내일모레</h3>
+            <p>오늘, 내일, 모레에 집중할 수 있도록 만든 세 칸 캘린더입니다.</p>
+            <div class="store-actions"><a class="store-button" href="https://play.google.com/store/apps/details?id=com.thirdtype.ttcal" target="_blank" rel="noopener noreferrer">Google Play</a><a class="store-button secondary" href="https://apps.apple.com/kr/app/id6785738560" target="_blank" rel="noopener noreferrer">App Store</a></div>
+            <a class="app-card-link" href="apps/ttcal/">앱 자세히 보기 <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="app-card">
+            <div class="app-card-top">
+              <div class="app-icon"><span class="app-icon-fallback" aria-hidden="true">RETRO</span><img src="assets/icons/retro-timestamp.webp" alt="레트로 타임스탬프 앱 아이콘"></div>
+              <span class="platform-label">Android</span>
+            </div>
+            <h3>레트로 타임스탬프</h3>
+            <p>사진의 EXIF 날짜를 바탕으로 추억을 닮은 레트로 스탬프를 더합니다.</p>
+            <div class="store-actions"><a class="store-button" href="https://play.google.com/store/apps/details?id=com.thirdtype.retrotimestamp" target="_blank" rel="noopener noreferrer">Google Play</a></div>
+            <a class="app-card-link" href="apps/retro-timestamp/">앱 자세히 보기 <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="app-card">
+            <div class="app-card-top">
+              <div class="app-icon"><span class="app-icon-fallback" aria-hidden="true">●●</span><img src="assets/icons/motion-ease.webp" alt="디지털 멀미 치료제 앱 아이콘"></div>
+              <span class="platform-label">Android</span>
+            </div>
+            <h3>디지털 멀미 치료제</h3>
+            <p>움직임에 반응하는 가장자리 점과 선택형 헤드폰 전용 100Hz 톤을 제공합니다.</p>
+            <div class="store-actions"><a class="store-button" href="https://play.google.com/store/apps/details?id=com.thirdtype.carsick" target="_blank" rel="noopener noreferrer">Google Play</a></div>
+            <a class="app-card-link" href="apps/motion-ease/">앱 자세히 보기 <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="about-band" aria-labelledby="about-title">
+        <div>
+          <p class="eyebrow">Small, useful, yours</p>
+          <h2 id="about-title">작지만 오래 쓰는 경험을 만듭니다.</h2>
+        </div>
+        <p>슬기로운 생활의 앱은 복잡한 기능을 늘어놓기보다 한 가지 쓰임을 또렷하게 다룹니다. 실제 사용 장면에서 필요한 정보와 선택지만 남겨, 일상에 자연스럽게 놓일 수 있도록 만들고 있습니다.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="footer-brand">
+        <a class="brand" href="./" aria-label="슬기로운 생활 홈">
+          <span class="brand-mark" aria-hidden="true">슬생</span>
+          <span>슬기로운 생활</span>
+        </a>
+        <p>생활의 작은 불편을 더 나은 앱으로.</p>
+      </div>
+      <dl class="legal-list">
+        <div><dt>상호</dt><dd>슬기로운 생활</dd></div>
+        <div><dt>대표</dt><dd>송회인</dd></div>
+        <div><dt>사업자등록번호</dt><dd>875-28-01839</dd></div>
+        <div><dt>통신판매업신고</dt><dd>2026-서울강동-1180</dd></div>
+        <div><dt>이메일</dt><dd><a href="mailto:thirdtype@gmail.com">thirdtype@gmail.com</a></dd></div>
+        <div><dt>주소</dt><dd>서울특별시 강동구 성내로6나길 7, 303호</dd></div>
+      </dl>
+      <p class="footer-note">© 2026 슬기로운 생활. 모든 앱의 공식 스토어 링크는 각 제품 페이지에서 확인할 수 있습니다.</p>
+    </footer>
+  </body>
 </html>
