@@ -13,7 +13,7 @@
 
 ## GitHub Pages 소스
 
-GitHub Pages의 configured source는 브랜치 `main`, 경로 `/`입니다. `agent/company-website`는 회사 사이트 콘텐츠를 준비하는 working branch일 뿐 Pages source가 아닙니다. 회사 사이트 콘텐츠는 이미 `main`의 `d2842c9`에 있으며, `d2842c9`와 working branch의 `42d82c7`은 동일한 tree `defb5618a2653cfee577d1b72e99b4121e0965cd`를 가집니다. 이후 `main`에 추가된 main-only `CNAME`, `business-news/privacy-policy.html`, `support.html`은 보존해야 합니다. 최근 fetch 뒤 `origin/main`은 `66a2f5053ecf8e3ca372603d8331ddfdce4c0956`으로 이동했고 `origin/main...HEAD = 13 2`로 분기했으므로, 이전 fast-forward 계획은 더 이상 유효하지 않습니다. Lead closeout은 main-only 파일을 보존하는 non-destructive merge/integration을 사용하고 force-push하지 않으며, 통합 후 두 원격 ref를 `git ls-remote`로 확인합니다. Coder 단계에서는 이 문서와 `CNAME`만 변경했으며 외부 상태를 변경하지 않았습니다.
+GitHub Pages의 configured source는 브랜치 `main`, 경로 `/`입니다. `agent/company-website`는 회사 사이트 콘텐츠를 준비하는 working branch일 뿐 Pages source가 아닙니다. 회사 사이트 콘텐츠가 동일한 tree로 별도 커밋된 뒤 `main`에 추가된 `CNAME`, `business-news/privacy-policy.html`, `business-news/support.html`을 보존하기 위해 non-destructive merge를 사용했습니다. 통합 커밋 `b54470bf1cb06fdee02b10834e1c82d57d8733a7`은 `origin/main`과 `origin/agent/company-website`에서 동일하게 읽혔으며 force-push는 사용하지 않았습니다.
 
 ## DNS 및 HTTPS 상태
 
@@ -56,4 +56,4 @@ PYTHONDONTWRITEBYTECODE=1 python3 scripts/validate.py --http-base http://127.0.0
 
 ## 현재 handoff 경계
 
-Coder 단계에서는 회사 사이트 문서와 `CNAME`만 변경했으며 외부 상태를 변경하지 않았습니다. Lead closeout에서 이 변경을 커밋하고 main-only 파일을 보존하는 non-destructive merge/integration을 수행한 뒤 두 원격 ref를 `git ls-remote`로 읽어 옵니다. force-push는 사용하지 않습니다. Pages 설정, DNS, Tumblr, Gist, 스토어 필드, Search Console 제출은 각 권한과 검증 증거에 따라 별도 확인합니다. HTTPS 인증서가 승인·강제되기 전에는 이 문서의 `authorization_created` 및 `https_enforced: false` 상태를 갱신하지 않습니다.
+사이트와 handoff는 Git 원격에 저장했고 공개 홈페이지·개인정보 허브·여섯 앱·Business News 지원/개인정보 페이지가 HTTP 200을 반환하는지 확인했습니다. 공개 홈페이지와 소스 `index.html`의 SHA-256도 일치합니다. Pages 설정, DNS, Tumblr, Gist, 스토어 필드, Search Console은 각각 별도 권한과 증거 경계를 유지합니다. HTTPS 인증서는 아직 `authorization_created`, `https_enforced: false`이므로 완료로 표시하지 않습니다.
