@@ -22,6 +22,7 @@ BASE_URL = "https://www.thirdtype.net/"
 SOCIAL_IMAGE_URL = BASE_URL + "assets/og.png"
 SOCIAL_IMAGE_WIDTH = 1728
 SOCIAL_IMAGE_HEIGHT = 910
+NAVER_VERIFICATION_TOKEN = "b0c48fbbc7ceb316a04883d1f114d1a497ecca96"
 
 SCREENSHOT_ROOT = ROOT / "assets" / "screenshots"
 SCREENSHOT_DIMENSIONS = {
@@ -315,8 +316,56 @@ class PageParser(HTMLParser):
             self._jsonld_chunks.append(data)
 
 
+class NaverVerificationParser(HTMLParser):
+    """Collect Naver verification metadata and whether it is inside <head>."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._head_depth = 0
+        self.records: list[tuple[bool, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() == "head":
+            self._head_depth += 1
+            return
+        if tag.lower() != "meta":
+            return
+        data = {key.lower(): value or "" for key, value in attrs}
+        if data.get("name", "").lower() == "naver-site-verification":
+            self.records.append((self._head_depth > 0, data.get("content", "")))
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "head" and self._head_depth:
+            self._head_depth -= 1
+
+
 def fail(errors: list[str], message: str) -> None:
     errors.append(message)
+
+
+def check_naver_verification(errors: list[str]) -> None:
+    path = ROOT / "index.html"
+    if not path.is_file():
+        return
+    parser = NaverVerificationParser()
+    try:
+        parser.feed(path.read_text(encoding="utf-8"))
+        parser.close()
+    except (OSError, UnicodeError) as exc:
+        fail(errors, f"index.html: cannot inspect Naver verification metadata: {exc}")
+        return
+
+    if len(parser.records) != 1:
+        fail(errors, f"index.html: expected exactly one Naver verification meta tag, found {len(parser.records)}")
+        return
+    in_head, token = parser.records[0]
+    if not in_head:
+        fail(errors, "index.html: Naver verification meta tag must be inside homepage <head>")
+    if token != NAVER_VERIFICATION_TOKEN:
+        fail(errors, "index.html: Naver verification token does not match the locked value")
 
 
 def page_files() -> list[Path]:
@@ -992,6 +1041,7 @@ def main() -> int:
     args = parser.parse_args()
     errors: list[str] = []
     check_pages(errors)
+    check_naver_verification(errors)
     check_images(errors)
     check_screenshot_assets(errors)
     check_editorial_structure(errors)
