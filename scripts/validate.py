@@ -177,8 +177,8 @@ PRIVACY_POLICY_MAP = (
         "carrotcard",
         "총명함",
         (
-            ("Android", "https://htmlpreview.github.io/?https://gist.githubusercontent.com/thirdtype-dev/b17f59079c6676e70bf9232313b8ded2/raw/chongcard-privacy-policy.html"),
-            ("iPhone", "https://gist.github.com/thirdtype-dev/189f6c353107e874f2586f567ac10757"),
+            ("Android", "https://www.thirdtype.net/privacy-policy/carrotcard-android.html"),
+            ("iPhone", "https://www.thirdtype.net/privacy-policy/carrotcard-ios.html"),
         ),
     ),
     (
@@ -192,8 +192,8 @@ PRIVACY_POLICY_MAP = (
         "gps-speed-go",
         "GPS Speed Go",
         (
-            ("Android", "https://htmlpreview.github.io/?https://gist.githubusercontent.com/thirdtype-dev/c872c361756adf886f36a25597574cd3/raw/79693309cde8cfe2a7cc533f10c3fd8a8000b24a/privacy-policy.html"),
-            ("iPhone", "https://thirdtype-dev.github.io/gps-speed-go/privacy-policy.html"),
+            ("Android", "https://www.thirdtype.net/privacy-policy/gps-speed-go-android.html"),
+            ("iPhone", "https://www.thirdtype.net/gps-speed-go/privacy-policy.html"),
         ),
     ),
     (
@@ -222,6 +222,9 @@ PRIVACY_POLICY_MAP = (
 
 FROZEN_POLICY_HASHES = {
     Path("privacy-policy.html"): "712d5f5391a211c9a7545dfeb790a09ff773f56a774e31202cd44e77238b1b28",
+    Path("privacy-policy/carrotcard-android.html"): "75f9deec30a0414848e872aa1059036064eb904d47b0d96d6dbb8d89ecbb3554",
+    Path("privacy-policy/carrotcard-ios.html"): "672888ce32fcba2d5ba3650699f7ae4aee4bc87e2b543fe054a4959b6b34fed9",
+    Path("privacy-policy/gps-speed-go-android.html"): "eee21b5dccf8667e1b44c5e2685c089c40bbdd5c7aacf9eb24478b2a39442f57",
     Path("privacy-policy/maedo-signal.html"): "a737c97d56b67f230f90dd1b3d6a026103c63cde4935e71ad7df7f4381d2805c",
     Path("privacy-policy/retro-timestamp.html"): "5f714b044140ba8d1d3a984b2295c07bfb4619d63c04db8d13e0a65679708080",
     Path("gps-speed-go/privacy-policy.html"): "310eb4d98e36442707a7a472589ac60ffd615f487ffd9ef5180722e01f7c8ec1",
