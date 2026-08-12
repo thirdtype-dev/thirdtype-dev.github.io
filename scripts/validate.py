@@ -171,6 +171,8 @@ EXPECTED_ROUTES = [
 ]
 
 PRIVACY_POLICY_ROUTE = "privacy-policy/"
+BUSINESS_NEWS_CONTACT_ROUTE = "apps/business-news/contact/"
+BUSINESS_NEWS_CONTACT_PAGE = Path(BUSINESS_NEWS_CONTACT_ROUTE) / "index.html"
 
 PRIVACY_POLICY_MAP = (
     (
@@ -886,9 +888,68 @@ def check_sitemap(errors: list[str]) -> None:
         return
     namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
     locations = [node.text or "" for node in root.findall(f"{namespace}url/{namespace}loc")]
-    expected = [BASE_URL, urljoin(BASE_URL, PRIVACY_POLICY_ROUTE)] + [urljoin(BASE_URL, route) for route in EXPECTED_ROUTES]
+    expected = [BASE_URL, urljoin(BASE_URL, PRIVACY_POLICY_ROUTE), urljoin(BASE_URL, BUSINESS_NEWS_CONTACT_ROUTE)] + [urljoin(BASE_URL, route) for route in EXPECTED_ROUTES]
     if locations != expected:
         fail(errors, f"sitemap URLs differ: expected {expected}, got {locations}")
+
+
+def check_business_news_contact(errors: list[str]) -> None:
+    path = ROOT / BUSINESS_NEWS_CONTACT_PAGE
+    if not path.is_file():
+        fail(errors, f"missing Business News contact page: {BUSINESS_NEWS_CONTACT_PAGE}")
+        return
+    try:
+        parser = PageParser()
+        source = path.read_text(encoding="utf-8")
+        parser.feed(source)
+        parser.close()
+    except (OSError, UnicodeError) as exc:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: cannot parse: {exc}")
+        return
+
+    expected = urljoin(BASE_URL, BUSINESS_NEWS_CONTACT_ROUTE)
+    if parser.canonical != expected:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: canonical should be {expected}, got {parser.canonical}")
+    if len(parser.h1) != 1 or "문의하기" not in parser.h1[0]:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: expected one clear 문의하기 H1")
+    if not parser.title or not parser.description:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: title and meta description are required")
+
+    email_links = [href for href, _ in parser.hrefs if href == "mailto:thirdtype@nate.com"]
+    if len(email_links) != 1:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: expected one clickable thirdtype@nate.com link")
+    privacy_href = "https://htmlpreview.github.io/?https://gist.githubusercontent.com/thirdtype-dev/ce11c39035fa5379bcfb3568879f952a/raw/business-news-privacy-policy.html"
+    if privacy_href not in {href for href, _ in parser.hrefs}:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: current Android privacy-policy link is missing")
+    if "../../../business-news/privacy-policy.html" in {href for href, _ in parser.hrefs}:
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: stale local iOS privacy-policy link is forbidden")
+
+    lowered = source.lower()
+    required_anchors = {
+        "app name": "경제신문",
+        "operator context": "슬기로운 생활",
+        "news service": "뉴스",
+        "rss aggregator": "rss",
+        "regular updates": "정기적으로 업데이트",
+        "original publisher/source": "원출처",
+        "source attribution": "출처",
+        "original article": "원문",
+    }
+    for label, anchor in required_anchors.items():
+        if anchor.lower() not in lowered:
+            fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: missing {label} anchor: {anchor}")
+    for term in ("iOS 17 이상", "Apple 계정"):
+        if term.lower() in lowered:
+            fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: iOS-only term is forbidden: {term}")
+
+    for href, _ in parser.hrefs:
+        if href and not href.startswith("#"):
+            check_local_target(path, href, errors, "href")
+    for src in parser.srcs:
+        if src:
+            check_local_target(path, src, errors, "asset")
+    if (ROOT / "apps/business-news/index.html").exists():
+        fail(errors, "apps/business-news/index.html: parent introduction route must remain uncreated")
 
 
 def check_robots(errors: list[str]) -> None:
@@ -1024,7 +1085,7 @@ def check_pages(errors: list[str]) -> None:
 
 def check_http(base: str, errors: list[str]) -> None:
     root = base.rstrip("/") + "/"
-    routes = ["", PRIVACY_POLICY_ROUTE] + EXPECTED_ROUTES
+    routes = ["", PRIVACY_POLICY_ROUTE, BUSINESS_NEWS_CONTACT_ROUTE] + EXPECTED_ROUTES
     for route in routes:
         url = root + route
         try:
@@ -1053,6 +1114,7 @@ def main() -> int:
     check_frozen_policy_files(errors)
     check_social_image(errors)
     check_sitemap(errors)
+    check_business_news_contact(errors)
     check_robots(errors)
     if not (ROOT / ".nojekyll").exists():
         fail(errors, "missing .nojekyll")
@@ -1065,9 +1127,9 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"VALIDATION PASSED: {len(page_files())} HTML pages, 6 local icons, 8 sitemap URLs")
+    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact, 6 local icons, 9 sitemap URLs")
     if args.http_base:
-        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + 6 detail routes")
+        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + Business News contact + 6 detail routes")
     return 0
 
 
