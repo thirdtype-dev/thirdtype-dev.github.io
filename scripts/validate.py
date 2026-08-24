@@ -44,9 +44,12 @@ SCREENSHOT_DIMENSIONS = {
     "motion-ease/01.png": (1080, 1920),
     "motion-ease/02.png": (1080, 1920),
     "motion-ease/03.png": (1080, 1920),
+    "business-news/01.png": (1080, 1920),
+    "business-news/02.png": (1080, 1920),
+    "business-news/03.png": (1080, 1920),
 }
 
-SCREENSHOT_SLUGS = tuple(slug for slug in ("carrotcard", "maedo-signal", "gps-speed-go", "ttcal", "retro-timestamp", "motion-ease"))
+SCREENSHOT_SLUGS = tuple(slug for slug in ("carrotcard", "maedo-signal", "gps-speed-go", "ttcal", "retro-timestamp", "motion-ease", "business-news"))
 
 PROHIBITED_MOTIFS = (
     ".app-card",
@@ -69,6 +72,7 @@ STORE_LINKS = {
     "https://apps.apple.com/kr/app/id6785738560": "ttcal",
     "https://play.google.com/store/apps/details?id=com.thirdtype.retrotimestamp": "retro-timestamp",
     "https://play.google.com/store/apps/details?id=com.thirdtype.carsick": "motion-ease",
+    "https://play.google.com/store/apps/details?id=com.thirdtype.businessnews": "business-news",
 }
 
 DETAIL_LINK_COUNTS = {
@@ -78,6 +82,7 @@ DETAIL_LINK_COUNTS = {
     "ttcal": 2,
     "retro-timestamp": 1,
     "motion-ease": 1,
+    "business-news": 1,
 }
 
 HOME_FEATURES = [
@@ -141,6 +146,16 @@ HOME_FEATURES = [
         "screenshots": ("assets/screenshots/motion-ease/01.png", "assets/screenshots/motion-ease/02.png"),
         "stores": ("https://play.google.com/store/apps/details?id=com.thirdtype.carsick",),
     },
+    {
+        "slug": "business-news",
+        "number": "07",
+        "name": "경제신문",
+        "lede": "여러 경제 매체의 뉴스를 한곳에서 읽는 올인원 경제 뉴스 리더입니다.",
+        "platform": "Android",
+        "detail": "apps/business-news/",
+        "screenshots": ("assets/screenshots/business-news/01.png", "assets/screenshots/business-news/02.png"),
+        "stores": ("https://play.google.com/store/apps/details?id=com.thirdtype.businessnews",),
+    },
 ]
 
 PHILOSOPHY_PARAGRAPHS = (
@@ -168,6 +183,7 @@ EXPECTED_ROUTES = [
     "apps/ttcal/",
     "apps/retro-timestamp/",
     "apps/motion-ease/",
+    "apps/business-news/",
 ]
 
 PRIVACY_POLICY_ROUTE = "privacy-policy/"
@@ -691,8 +707,8 @@ def check_editorial_structure(errors: list[str]) -> None:
     home_parser = PageParser()
     home_parser.feed(home)
     store_count = sum(1 for href, _ in home_parser.hrefs if href in STORE_LINKS)
-    if store_count != 9:
-        fail(errors, f"index.html: expected 9 official store links, found {store_count}")
+    if store_count != 10:
+        fail(errors, f"index.html: expected 10 official store links, found {store_count}")
 
 
 def clean_fragment(fragment: str) -> str:
@@ -948,10 +964,6 @@ def check_business_news_contact(errors: list[str]) -> None:
     for src in parser.srcs:
         if src:
             check_local_target(path, src, errors, "asset")
-    if (ROOT / "apps/business-news/index.html").exists():
-        fail(errors, "apps/business-news/index.html: parent introduction route must remain uncreated")
-
-
 def check_robots(errors: list[str]) -> None:
     path = ROOT / "robots.txt"
     if not path.is_file():
@@ -1079,8 +1091,8 @@ def check_pages(errors: list[str]) -> None:
         parser = PageParser()
         parser.feed(home.read_text(encoding="utf-8"))
         store_count = sum(1 for href, _ in parser.hrefs if href in STORE_LINKS)
-        if store_count != 9:
-            fail(errors, f"index.html: expected 9 official store links, found {store_count}")
+        if store_count != 10:
+            fail(errors, f"index.html: expected 10 official store links, found {store_count}")
 
 
 def check_http(base: str, errors: list[str]) -> None:
@@ -1101,7 +1113,7 @@ def check_http(base: str, errors: list[str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--http-base", help="also request home, privacy hub, and all six detail routes from a running local server")
+    parser.add_argument("--http-base", help="also request home, privacy hub, Business News contact, and all seven detail routes from a running local server")
     args = parser.parse_args()
     errors: list[str] = []
     check_pages(errors)
@@ -1127,9 +1139,9 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact, 6 local icons, 9 sitemap URLs")
+    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact, 6 local icons, 10 sitemap URLs")
     if args.http_base:
-        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + Business News contact + 6 detail routes")
+        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + Business News contact + 7 detail routes")
     return 0
 
 
