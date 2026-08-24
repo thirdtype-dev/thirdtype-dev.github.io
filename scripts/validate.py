@@ -64,6 +64,7 @@ PROHIBITED_MOTIFS = (
 
 BUSINESS_NEWS_ANDROID_POLICY_URL = "https://www.thirdtype.net/privacy-policy/business-news-android.html"
 BUSINESS_NEWS_IPHONE_POLICY_URL = "https://www.thirdtype.net/business-news/privacy-policy.html"
+SEOULROLL_ANDROID_POLICY_URL = "https://www.thirdtype.net/privacy-policy/seoulroll-android.html"
 BUSINESS_NEWS_PLAY_URL = "https://play.google.com/store/apps/details?id=com.thirdtype.businessnews"
 BUSINESS_NEWS_APPLE_URL = "https://apps.apple.com/kr/app/id6797872683"
 BUSINESS_NEWS_DETAIL_POLICY_HREF = "../../privacy-policy/#business-news"
@@ -252,6 +253,13 @@ PRIVACY_POLICY_MAP = (
             ("iPhone", BUSINESS_NEWS_IPHONE_POLICY_URL),
         ),
     ),
+    (
+        "seoulroll",
+        "서울롤",
+        (
+            ("Android", SEOULROLL_ANDROID_POLICY_URL),
+        ),
+    ),
 )
 
 FROZEN_POLICY_HASHES = {
@@ -264,6 +272,7 @@ FROZEN_POLICY_HASHES = {
     Path("gps-speed-go/privacy-policy.html"): "310eb4d98e36442707a7a472589ac60ffd615f487ffd9ef5180722e01f7c8ec1",
     Path("privacy-policy/business-news-android.html"): "8443b09ba48dbc3a17218496c1c5c23c98dd985c1165314964ce057708553e76",
     Path("business-news/privacy-policy.html"): "c3b698050e33e76c37985e97e107ac32efa0c4a504c80bf1df8c339837628a58",
+    Path("privacy-policy/seoulroll-android.html"): "e633090cc28aa64f1ff0a721e91cd61bdb0c99d853a43df3365dde388ae7645e",
 }
 
 CANONICAL_PAGE_RELATIVE = [
