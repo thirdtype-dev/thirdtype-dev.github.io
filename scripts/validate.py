@@ -62,6 +62,13 @@ PROHIBITED_MOTIFS = (
     "brand-mark",
 )
 
+BUSINESS_NEWS_ANDROID_POLICY_URL = "https://www.thirdtype.net/privacy-policy/business-news-android.html"
+BUSINESS_NEWS_IPHONE_POLICY_URL = "https://www.thirdtype.net/business-news/privacy-policy.html"
+BUSINESS_NEWS_PLAY_URL = "https://play.google.com/store/apps/details?id=com.thirdtype.businessnews"
+BUSINESS_NEWS_APPLE_URL = "https://apps.apple.com/kr/app/id6797872683"
+BUSINESS_NEWS_DETAIL_POLICY_HREF = "../../privacy-policy/#business-news"
+BUSINESS_NEWS_FORBIDDEN_POLICY_HOSTS = ("htmlpreview.github.io", "gist.githubusercontent.com", "thirdtype-dev.github.io")
+
 STORE_LINKS = {
     "https://play.google.com/store/apps/details?id=com.thirdtype.carrotcard": "carrotcard",
     "https://apps.apple.com/kr/app/id6787031350": "carrotcard",
@@ -72,7 +79,8 @@ STORE_LINKS = {
     "https://apps.apple.com/kr/app/id6785738560": "ttcal",
     "https://play.google.com/store/apps/details?id=com.thirdtype.retrotimestamp": "retro-timestamp",
     "https://play.google.com/store/apps/details?id=com.thirdtype.carsick": "motion-ease",
-    "https://play.google.com/store/apps/details?id=com.thirdtype.businessnews": "business-news",
+    BUSINESS_NEWS_PLAY_URL: "business-news",
+    BUSINESS_NEWS_APPLE_URL: "business-news",
 }
 
 DETAIL_LINK_COUNTS = {
@@ -82,7 +90,7 @@ DETAIL_LINK_COUNTS = {
     "ttcal": 2,
     "retro-timestamp": 1,
     "motion-ease": 1,
-    "business-news": 1,
+    "business-news": 2,
 }
 
 HOME_FEATURES = [
@@ -151,10 +159,10 @@ HOME_FEATURES = [
         "number": "07",
         "name": "경제신문",
         "lede": "여러 경제 매체의 뉴스를 한곳에서 읽는 올인원 경제 뉴스 리더입니다.",
-        "platform": "Android",
+        "platform": "Android · iPhone",
         "detail": "apps/business-news/",
         "screenshots": ("assets/screenshots/business-news/01.png", "assets/screenshots/business-news/02.png"),
-        "stores": ("https://play.google.com/store/apps/details?id=com.thirdtype.businessnews",),
+        "stores": (BUSINESS_NEWS_PLAY_URL, BUSINESS_NEWS_APPLE_URL),
     },
 ]
 
@@ -236,6 +244,14 @@ PRIVACY_POLICY_MAP = (
             ("Android", "https://htmlpreview.github.io/?https://gist.githubusercontent.com/thirdtype-dev/9ece73632af6c079b17ebf09cc7471e7/raw/motionease-privacy-policy.html"),
         ),
     ),
+    (
+        "business-news",
+        "경제신문",
+        (
+            ("Android", BUSINESS_NEWS_ANDROID_POLICY_URL),
+            ("iPhone", BUSINESS_NEWS_IPHONE_POLICY_URL),
+        ),
+    ),
 )
 
 FROZEN_POLICY_HASHES = {
@@ -246,6 +262,8 @@ FROZEN_POLICY_HASHES = {
     Path("privacy-policy/maedo-signal.html"): "a737c97d56b67f230f90dd1b3d6a026103c63cde4935e71ad7df7f4381d2805c",
     Path("privacy-policy/retro-timestamp.html"): "5f714b044140ba8d1d3a984b2295c07bfb4619d63c04db8d13e0a65679708080",
     Path("gps-speed-go/privacy-policy.html"): "310eb4d98e36442707a7a472589ac60ffd615f487ffd9ef5180722e01f7c8ec1",
+    Path("privacy-policy/business-news-android.html"): "8443b09ba48dbc3a17218496c1c5c23c98dd985c1165314964ce057708553e76",
+    Path("business-news/privacy-policy.html"): "c3b698050e33e76c37985e97e107ac32efa0c4a504c80bf1df8c339837628a58",
 }
 
 CANONICAL_PAGE_RELATIVE = [
@@ -707,8 +725,8 @@ def check_editorial_structure(errors: list[str]) -> None:
     home_parser = PageParser()
     home_parser.feed(home)
     store_count = sum(1 for href, _ in home_parser.hrefs if href in STORE_LINKS)
-    if store_count != 10:
-        fail(errors, f"index.html: expected 10 official store links, found {store_count}")
+    if store_count != 11:
+        fail(errors, f"index.html: expected 11 official store links, found {store_count}")
 
 
 def clean_fragment(fragment: str) -> str:
@@ -820,7 +838,7 @@ def check_privacy_hub(errors: list[str]) -> None:
             fail(errors, f"assets/site.css: privacy hub selector is missing: {selector}")
 
     row_matches = re.findall(
-        r'<article class="privacy-entry" data-app="([a-z0-9-]+)">(.*?)</article>',
+        r'<article class="privacy-entry" data-app="([a-z0-9-]+)"[^>]*>(.*?)</article>',
         hub,
         re.DOTALL,
     )
@@ -934,8 +952,7 @@ def check_business_news_contact(errors: list[str]) -> None:
     email_links = [href for href, _ in parser.hrefs if href == "mailto:thirdtype@nate.com"]
     if len(email_links) != 1:
         fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: expected one clickable thirdtype@nate.com link")
-    privacy_href = "https://htmlpreview.github.io/?https://gist.githubusercontent.com/thirdtype-dev/ce11c39035fa5379bcfb3568879f952a/raw/business-news-privacy-policy.html"
-    if privacy_href not in {href for href, _ in parser.hrefs}:
+    if BUSINESS_NEWS_ANDROID_POLICY_URL not in {href for href, _ in parser.hrefs}:
         fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: current Android privacy-policy link is missing")
     if "../../../business-news/privacy-policy.html" in {href for href, _ in parser.hrefs}:
         fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: stale local iOS privacy-policy link is forbidden")
@@ -964,6 +981,97 @@ def check_business_news_contact(errors: list[str]) -> None:
     for src in parser.srcs:
         if src:
             check_local_target(path, src, errors, "asset")
+
+
+def check_business_news_contract(errors: list[str]) -> None:
+    home_path = ROOT / "index.html"
+    detail_path = ROOT / "apps" / "business-news" / "index.html"
+    hub_path = ROOT / "privacy-policy" / "index.html"
+    contact_path = ROOT / BUSINESS_NEWS_CONTACT_PAGE
+    paths = (home_path, detail_path, hub_path, contact_path)
+    if not all(path.is_file() for path in paths):
+        return
+
+    home = home_path.read_text(encoding="utf-8")
+    detail = detail_path.read_text(encoding="utf-8")
+    hub = hub_path.read_text(encoding="utf-8")
+    contact = contact_path.read_text(encoding="utf-8")
+
+    home_match = re.search(
+        r'<article class="app-feature\s+app-feature--business-news"[^>]*data-app="business-news"[^>]*>(.*?)</article>',
+        home,
+        re.DOTALL,
+    )
+    if not home_match:
+        fail(errors, "index.html: Business News feature is missing")
+    else:
+        home_block = home_match.group(1)
+        if '<span class="app-feature-platform">Android · iPhone</span>' not in home_block:
+            fail(errors, "index.html: Business News must declare Android · iPhone")
+        home_parser = PageParser()
+        home_parser.feed(home_block)
+        home_stores = tuple(href for href, _ in home_parser.hrefs if href in STORE_LINKS and STORE_LINKS[href] == "business-news")
+        expected_stores = (BUSINESS_NEWS_PLAY_URL, BUSINESS_NEWS_APPLE_URL)
+        if home_stores != expected_stores:
+            fail(errors, f"index.html: Business News store links differ: expected {expected_stores}, got {home_stores}")
+
+    detail_parser = PageParser()
+    detail_parser.feed(detail)
+    if '<p class="eyebrow">Android · iPhone</p>' not in detail:
+        fail(errors, "apps/business-news/index.html: detail page must declare Android · iPhone")
+    detail_stores = tuple(href for href, _ in detail_parser.hrefs if href in STORE_LINKS and STORE_LINKS[href] == "business-news")
+    expected_stores = (BUSINESS_NEWS_PLAY_URL, BUSINESS_NEWS_APPLE_URL)
+    if detail_stores != expected_stores:
+        fail(errors, f"apps/business-news/index.html: store links differ: expected {expected_stores}, got {detail_stores}")
+    if BUSINESS_NEWS_DETAIL_POLICY_HREF not in {href for href, _ in detail_parser.hrefs}:
+        fail(errors, f"apps/business-news/index.html: privacy hub link is missing: {BUSINESS_NEWS_DETAIL_POLICY_HREF}")
+    if len(detail_parser.jsonld) != 1:
+        fail(errors, "apps/business-news/index.html: expected one SoftwareApplication JSON-LD block")
+    else:
+        try:
+            detail_jsonld = json.loads(detail_parser.jsonld[0])
+        except json.JSONDecodeError as exc:
+            fail(errors, f"apps/business-news/index.html: invalid JSON-LD: {exc}")
+        else:
+            if detail_jsonld.get("operatingSystem") != "Android, iOS":
+                fail(errors, "apps/business-news/index.html: JSON-LD operatingSystem must be Android, iOS")
+            download_urls = detail_jsonld.get("downloadUrl")
+            if tuple(download_urls) != expected_stores:
+                fail(errors, f"apps/business-news/index.html: JSON-LD downloadUrl differs: expected {expected_stores}, got {download_urls}")
+
+    hub_match = re.search(
+        r'<article class="privacy-entry" data-app="business-news"[^>]*>(.*?)</article>',
+        hub,
+        re.DOTALL,
+    )
+    if not hub_match:
+        fail(errors, "privacy-policy/index.html: Business News row 07 is missing")
+    else:
+        hub_row_parser = PageParser()
+        hub_row_parser.feed(hub_match.group(0))
+        hub_policy_links = tuple(href for href, _ in hub_row_parser.hrefs if href in {BUSINESS_NEWS_ANDROID_POLICY_URL, BUSINESS_NEWS_IPHONE_POLICY_URL})
+        expected_policy_links = (BUSINESS_NEWS_ANDROID_POLICY_URL, BUSINESS_NEWS_IPHONE_POLICY_URL)
+        if hub_policy_links != expected_policy_links:
+            fail(errors, f"privacy-policy/index.html: Business News policy links differ: expected {expected_policy_links}, got {hub_policy_links}")
+    contact_parser = PageParser()
+    contact_parser.feed(contact)
+    contact_policy_links = tuple(href for href, _ in contact_parser.hrefs if href in {BUSINESS_NEWS_ANDROID_POLICY_URL, BUSINESS_NEWS_IPHONE_POLICY_URL})
+    if contact_policy_links != (BUSINESS_NEWS_ANDROID_POLICY_URL,):
+        fail(errors, f"{BUSINESS_NEWS_CONTACT_PAGE}: Android company-domain policy link is missing or duplicated: {contact_policy_links}")
+
+    parsed_policy_urls = (urlparse(BUSINESS_NEWS_ANDROID_POLICY_URL), urlparse(BUSINESS_NEWS_IPHONE_POLICY_URL))
+    if any(parsed.scheme != "https" or parsed.netloc != "www.thirdtype.net" for parsed in parsed_policy_urls):
+        fail(errors, "Business News policy URLs must use https://www.thirdtype.net/")
+    for label, parser in (("detail", detail_parser), ("contact", contact_parser)):
+        for href, _ in parser.hrefs:
+            if any(host in href.lower() for host in BUSINESS_NEWS_FORBIDDEN_POLICY_HOSTS):
+                fail(errors, f"Business News {label} has a forbidden policy host: {href}")
+    if hub_match:
+        for href in re.findall(r'<a\b[^>]*href="([^"]+)"', hub_match.group(0)):
+            if any(host in href.lower() for host in BUSINESS_NEWS_FORBIDDEN_POLICY_HOSTS):
+                fail(errors, f"Business News privacy row has a forbidden policy host: {href}")
+
+
 def check_robots(errors: list[str]) -> None:
     path = ROOT / "robots.txt"
     if not path.is_file():
@@ -1091,8 +1199,8 @@ def check_pages(errors: list[str]) -> None:
         parser = PageParser()
         parser.feed(home.read_text(encoding="utf-8"))
         store_count = sum(1 for href, _ in parser.hrefs if href in STORE_LINKS)
-        if store_count != 10:
-            fail(errors, f"index.html: expected 10 official store links, found {store_count}")
+        if store_count != 11:
+            fail(errors, f"index.html: expected 11 official store links, found {store_count}")
 
 
 def check_http(base: str, errors: list[str]) -> None:
@@ -1127,6 +1235,7 @@ def main() -> int:
     check_social_image(errors)
     check_sitemap(errors)
     check_business_news_contact(errors)
+    check_business_news_contract(errors)
     check_robots(errors)
     if not (ROOT / ".nojekyll").exists():
         fail(errors, "missing .nojekyll")
