@@ -624,8 +624,8 @@ def check_editorial_structure(errors: list[str]) -> None:
     home = home_path.read_text(encoding="utf-8")
     not_found = not_found_path.read_text(encoding="utf-8") if not_found_path.is_file() else ""
     css = css_path.read_text(encoding="utf-8")
-    if "작은 불편을 크게 줄입니다." not in home:
-        fail(errors, "index.html: missing r2 hero statement")
+    if "작은 불편 하나도 가볍게 넘기지 않습니다" not in home:
+        fail(errors, "index.html: missing homepage hero heading")
     if "#f5f3ee" not in css.lower() or "#0a0a0a" not in css.lower():
         fail(errors, "assets/site.css: r2 warm-white/black palette is missing")
     check_radius_guard(css, errors)
