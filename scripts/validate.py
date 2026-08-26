@@ -65,6 +65,16 @@ PROHIBITED_MOTIFS = (
 BUSINESS_NEWS_ANDROID_POLICY_URL = "https://www.thirdtype.net/privacy-policy/business-news-android.html"
 BUSINESS_NEWS_IPHONE_POLICY_URL = "https://www.thirdtype.net/business-news/privacy-policy.html"
 SEOULROLL_ANDROID_POLICY_URL = "https://www.thirdtype.net/privacy-policy/seoulroll-android.html"
+SEOULROLL_IOS_POLICY_URL = "https://www.thirdtype.net/privacy-policy/seoulroll-ios.html"
+SEOULROLL_SUPPORT_URL = "https://www.thirdtype.net/seoulroll/support.html"
+SEOULROLL_IOS_POLICY_ROUTE = "privacy-policy/seoulroll-ios.html"
+SEOULROLL_SUPPORT_ROUTE = "seoulroll/support.html"
+SEOULROLL_IOS_POLICY_PAGE = Path(SEOULROLL_IOS_POLICY_ROUTE)
+SEOULROLL_SUPPORT_PAGE = Path(SEOULROLL_SUPPORT_ROUTE)
+APPLE_SUBSCRIPTION_MANAGEMENT_URL = "https://apps.apple.com/account/subscriptions"
+GOOGLE_PRIVACY_URL = "https://policies.google.com/privacy"
+GOOGLE_ADS_TECHNOLOGY_URL = "https://policies.google.com/technologies/ads"
+APPLE_PRIVACY_URL = "https://www.apple.com/legal/privacy/"
 BUSINESS_NEWS_PLAY_URL = "https://play.google.com/store/apps/details?id=com.thirdtype.businessnews"
 BUSINESS_NEWS_APPLE_URL = "https://apps.apple.com/kr/app/id6797872683"
 BUSINESS_NEWS_DETAIL_POLICY_HREF = "../../privacy-policy/#business-news"
@@ -258,6 +268,7 @@ PRIVACY_POLICY_MAP = (
         "서울롤",
         (
             ("Android", SEOULROLL_ANDROID_POLICY_URL),
+            ("iPhone", SEOULROLL_IOS_POLICY_URL),
         ),
     ),
 )
@@ -273,6 +284,7 @@ FROZEN_POLICY_HASHES = {
     Path("privacy-policy/business-news-android.html"): "8443b09ba48dbc3a17218496c1c5c23c98dd985c1165314964ce057708553e76",
     Path("business-news/privacy-policy.html"): "c3b698050e33e76c37985e97e107ac32efa0c4a504c80bf1df8c339837628a58",
     Path("privacy-policy/seoulroll-android.html"): "e633090cc28aa64f1ff0a721e91cd61bdb0c99d853a43df3365dde388ae7645e",
+    SEOULROLL_IOS_POLICY_PAGE: "8bb7fd0791b2c37dd1c89fa234aaa68e80efcd6631685af947782f3849f2506b",
 }
 
 CANONICAL_PAGE_RELATIVE = [
@@ -894,6 +906,142 @@ def check_privacy_hub(errors: list[str]) -> None:
         fail(errors, "index.html: homepage footer must contain exactly one 개인정보처리방침 link to privacy-policy/index.html")
 
 
+def check_seoulroll_ios_policy(errors: list[str]) -> None:
+    path = ROOT / SEOULROLL_IOS_POLICY_PAGE
+    if not path.is_file():
+        fail(errors, f"missing SeoulRoll iOS privacy policy: {SEOULROLL_IOS_POLICY_PAGE}")
+        return
+    try:
+        source = path.read_text(encoding="utf-8")
+        parser = PageParser()
+        parser.feed(source)
+        parser.close()
+    except (OSError, UnicodeError) as exc:
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: cannot parse: {exc}")
+        return
+
+    if parser.canonical != SEOULROLL_IOS_POLICY_URL:
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: canonical should be {SEOULROLL_IOS_POLICY_URL}, got {parser.canonical}")
+    if parser.title != "서울롤(FilmRoll) iOS 개인정보처리방침 | Privacy Policy":
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: title does not match the locked iOS policy identity")
+    if parser.description != "서울롤(FilmRoll) iOS 앱의 개인정보처리방침":
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: meta description does not match the locked iOS policy copy")
+    if len(parser.h1) != 2:
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: expected one Korean and one English H1, found {len(parser.h1)}")
+    if source.count('data-language="ko"') != 1 or source.count('data-language="en"') != 1:
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: expected exactly one Korean and one English policy section")
+    if source.count('datetime="2026-08-26"') != 2:
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: both language sections must use effective date 2026-08-26")
+
+    required_anchors = {
+        "app identity": ("서울롤", "FilmRoll", "com.thirdtype.seoulroll"),
+        "contact": ("thirdtype@nate.com",),
+        "photo picker and metadata": ("PhotosPicker", "촬영일·수정일", "capture and modification dates"),
+        "local processing": ("기기 안에서", "on the device"),
+        "Photos save and share": ("사진 보관함", "iOS 공유 시트", "Photos library", "iOS share sheet"),
+        "local settings": ("UserDefaults",),
+        "ads and consent": ("Google Mobile Ads", "UMP", "ATT"),
+        "StoreKit subscriptions": ("Apple StoreKit", "monthly and annual Premium subscription"),
+        "deletion": ("삭제", "deletion"),
+        "children": ("만 13세 미만", "children under 13"),
+        "policy changes": ("방침 변경", "effective date"),
+        "Google and Apple policy links": (GOOGLE_PRIVACY_URL, GOOGLE_ADS_TECHNOLOGY_URL, APPLE_PRIVACY_URL),
+    }
+    for label, anchors in required_anchors.items():
+        if not all(anchor in source for anchor in anchors):
+            missing = [anchor for anchor in anchors if anchor not in source]
+            fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: missing {label} anchor(s): {', '.join(missing)}")
+
+    if len([href for href, _ in parser.hrefs if href == "mailto:thirdtype@nate.com"]) < 2:
+        fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: expected clickable contact links in both language sections")
+    for href in (GOOGLE_PRIVACY_URL, GOOGLE_ADS_TECHNOLOGY_URL, APPLE_PRIVACY_URL):
+        if source.count(href) < 2:
+            fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: expected {href} in both language sections")
+    for href, _ in parser.hrefs:
+        if href and not href.startswith("#"):
+            check_local_target(path, href, errors, "href")
+
+    for forbidden in ("Android", "Google Play", "Google Play Billing", "advertising ID", "광고 ID"):
+        if forbidden.lower() in source.lower():
+            fail(errors, f"{SEOULROLL_IOS_POLICY_PAGE}: iOS policy contains a platform-mismatched or unsupported claim: {forbidden}")
+
+
+def check_seoulroll_support(errors: list[str]) -> None:
+    path = ROOT / SEOULROLL_SUPPORT_PAGE
+    if not path.is_file():
+        fail(errors, f"missing SeoulRoll support page: {SEOULROLL_SUPPORT_PAGE}")
+        return
+    try:
+        source = path.read_text(encoding="utf-8")
+        parser = PageParser()
+        parser.feed(source)
+        parser.close()
+    except (OSError, UnicodeError) as exc:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: cannot parse: {exc}")
+        return
+
+    if parser.canonical != SEOULROLL_SUPPORT_URL:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: canonical should be {SEOULROLL_SUPPORT_URL}, got {parser.canonical}")
+    if parser.title != "서울롤(FilmRoll) iOS 지원 | Support":
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: title does not match the locked support identity")
+    if parser.description != "서울롤(FilmRoll) iOS 앱 사용 안내와 지원 연락처":
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: meta description does not match the locked support copy")
+    if len(parser.h1) != 2:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: expected one Korean and one English H1, found {len(parser.h1)}")
+    if source.count('data-language="ko"') != 1 or source.count('data-language="en"') != 1:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: expected exactly one Korean and one English support section")
+
+    required_anchors = (
+        "서울롤",
+        "FilmRoll",
+        "필름롤",
+        "사진 편집",
+        "타임스탬프",
+        "구독",
+        "복원",
+        "Apple 구독 관리",
+        "광고",
+        "개인정보 선택",
+        "Film Roll",
+        "Photo Edit",
+        "Timestamp",
+        "Restore",
+        "subscription management",
+        "Ads and privacy choices",
+        "문의",
+        "Contact",
+    )
+    for anchor in required_anchors:
+        if anchor not in source:
+            fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: missing support anchor: {anchor}")
+
+    if len([href for href, _ in parser.hrefs if href == "mailto:thirdtype@nate.com"]) != 2:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: expected exactly one contact link per language section")
+    if source.count(SEOULROLL_IOS_POLICY_URL) != 2:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: iOS privacy-policy URL must appear once per language section")
+    if source.count(APPLE_SUBSCRIPTION_MANAGEMENT_URL) < 2:
+        fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: Apple subscription-management URL is missing")
+    for href, _ in parser.hrefs:
+        if href and not href.startswith("#"):
+            check_local_target(path, href, errors, "href")
+
+    forbidden_promises = (
+        "24시간",
+        "48시간",
+        "영업일",
+        "응답 시간",
+        "응답시간",
+        "response time",
+        "reply within",
+        "guaranteed response",
+        "SLA",
+    )
+    lowered = source.lower()
+    for promise in forbidden_promises:
+        if promise.lower() in lowered:
+            fail(errors, f"{SEOULROLL_SUPPORT_PAGE}: support response-time promise is forbidden: {promise}")
+
+
 def check_frozen_policy_files(errors: list[str]) -> None:
     for relative, expected_hash in FROZEN_POLICY_HASHES.items():
         path = ROOT / relative
@@ -931,7 +1079,13 @@ def check_sitemap(errors: list[str]) -> None:
         return
     namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
     locations = [node.text or "" for node in root.findall(f"{namespace}url/{namespace}loc")]
-    expected = [BASE_URL, urljoin(BASE_URL, PRIVACY_POLICY_ROUTE), urljoin(BASE_URL, BUSINESS_NEWS_CONTACT_ROUTE)] + [urljoin(BASE_URL, route) for route in EXPECTED_ROUTES]
+    expected = [
+        BASE_URL,
+        urljoin(BASE_URL, PRIVACY_POLICY_ROUTE),
+        urljoin(BASE_URL, BUSINESS_NEWS_CONTACT_ROUTE),
+        SEOULROLL_IOS_POLICY_URL,
+        SEOULROLL_SUPPORT_URL,
+    ] + [urljoin(BASE_URL, route) for route in EXPECTED_ROUTES]
     if locations != expected:
         fail(errors, f"sitemap URLs differ: expected {expected}, got {locations}")
 
@@ -1214,7 +1368,7 @@ def check_pages(errors: list[str]) -> None:
 
 def check_http(base: str, errors: list[str]) -> None:
     root = base.rstrip("/") + "/"
-    routes = ["", PRIVACY_POLICY_ROUTE, BUSINESS_NEWS_CONTACT_ROUTE] + EXPECTED_ROUTES
+    routes = ["", PRIVACY_POLICY_ROUTE, BUSINESS_NEWS_CONTACT_ROUTE, SEOULROLL_IOS_POLICY_ROUTE, SEOULROLL_SUPPORT_ROUTE] + EXPECTED_ROUTES
     for route in routes:
         url = root + route
         try:
@@ -1230,7 +1384,7 @@ def check_http(base: str, errors: list[str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--http-base", help="also request home, privacy hub, Business News contact, and all seven detail routes from a running local server")
+    parser.add_argument("--http-base", help="also request home, privacy hub, SeoulRoll iOS pages, Business News contact, and all seven detail routes from a running local server")
     args = parser.parse_args()
     errors: list[str] = []
     check_pages(errors)
@@ -1240,6 +1394,8 @@ def main() -> int:
     check_editorial_structure(errors)
     check_detail_content(errors)
     check_privacy_hub(errors)
+    check_seoulroll_ios_policy(errors)
+    check_seoulroll_support(errors)
     check_frozen_policy_files(errors)
     check_social_image(errors)
     check_sitemap(errors)
@@ -1257,9 +1413,9 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact, 6 local icons, 10 sitemap URLs")
+    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact + SeoulRoll iOS policy/support, 6 local icons, 12 sitemap URLs")
     if args.http_base:
-        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + Business News contact + 7 detail routes")
+        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + SeoulRoll iOS policy/support + Business News contact + 7 detail routes")
     return 0
 
 
