@@ -47,9 +47,12 @@ SCREENSHOT_DIMENSIONS = {
     "business-news/01.png": (1080, 1920),
     "business-news/02.png": (1080, 1920),
     "business-news/03.png": (1080, 1920),
+    "filmroll/01.png": (1080, 1920),
+    "filmroll/02.png": (1080, 1920),
+    "filmroll/03.png": (1080, 1920),
 }
 
-SCREENSHOT_SLUGS = tuple(slug for slug in ("carrotcard", "maedo-signal", "gps-speed-go", "ttcal", "retro-timestamp", "motion-ease", "business-news"))
+SCREENSHOT_SLUGS = tuple(slug for slug in ("carrotcard", "maedo-signal", "gps-speed-go", "ttcal", "retro-timestamp", "motion-ease", "business-news", "filmroll"))
 
 PROHIBITED_MOTIFS = (
     ".app-card",
@@ -77,6 +80,7 @@ GOOGLE_ADS_TECHNOLOGY_URL = "https://policies.google.com/technologies/ads"
 APPLE_PRIVACY_URL = "https://www.apple.com/legal/privacy/"
 BUSINESS_NEWS_PLAY_URL = "https://play.google.com/store/apps/details?id=com.thirdtype.businessnews"
 BUSINESS_NEWS_APPLE_URL = "https://apps.apple.com/kr/app/id6797872683"
+FILMROLL_PLAY_URL = "https://play.google.com/store/apps/details?id=com.thirdtype.seoulroll"
 BUSINESS_NEWS_DETAIL_POLICY_HREF = "../../privacy-policy/#business-news"
 BUSINESS_NEWS_FORBIDDEN_POLICY_HOSTS = ("htmlpreview.github.io", "gist.githubusercontent.com", "thirdtype-dev.github.io")
 
@@ -92,6 +96,7 @@ STORE_LINKS = {
     "https://play.google.com/store/apps/details?id=com.thirdtype.carsick": "motion-ease",
     BUSINESS_NEWS_PLAY_URL: "business-news",
     BUSINESS_NEWS_APPLE_URL: "business-news",
+    FILMROLL_PLAY_URL: "filmroll",
 }
 
 DETAIL_LINK_COUNTS = {
@@ -102,6 +107,7 @@ DETAIL_LINK_COUNTS = {
     "retro-timestamp": 1,
     "motion-ease": 1,
     "business-news": 2,
+    "filmroll": 1,
 }
 
 HOME_FEATURES = [
@@ -175,6 +181,16 @@ HOME_FEATURES = [
         "screenshots": ("assets/screenshots/business-news/01.png", "assets/screenshots/business-news/02.png"),
         "stores": (BUSINESS_NEWS_PLAY_URL, BUSINESS_NEWS_APPLE_URL),
     },
+    {
+        "slug": "filmroll",
+        "number": "08",
+        "name": "필름롤",
+        "lede": "사진을 필름 롤 콜라주로 만들고, 서울 감성 필터와 레트로 타임스탬프로 기록하세요.",
+        "platform": "Android",
+        "detail": "apps/filmroll/",
+        "screenshots": ("assets/screenshots/filmroll/01.png", "assets/screenshots/filmroll/02.png"),
+        "stores": (FILMROLL_PLAY_URL,),
+    },
 ]
 
 PHILOSOPHY_PARAGRAPHS = (
@@ -203,6 +219,7 @@ EXPECTED_ROUTES = [
     "apps/retro-timestamp/",
     "apps/motion-ease/",
     "apps/business-news/",
+    "apps/filmroll/",
 ]
 
 PRIVACY_POLICY_ROUTE = "privacy-policy/"
@@ -312,12 +329,12 @@ PROHIBITED_TERMS = (
     "정부문서",
 )
 
-HOME_TITLE = "슬기로운 생활 — 일상에 필요한 만큼이면 충분합니다"
-HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편에 필요한 만큼의 기능을 담은 Android와 iPhone 앱을 만듭니다. 일곱 가지 일상의 도구를 만나보세요."
-HERO_HEADING = "일상에 필요한 만큼이면 충분합니다"
-HERO_PARAGRAPH = "슬기로운 생활은 작은 불편을 덜어줄 일상의 도구를 만듭니다. 필요한 기능을 담고, 생활에 자연스럽게 어울리며, 제 역할을 하는 앱이면 충분하다고 생각합니다."
+HOME_TITLE = "슬기로운 생활 — 군더더기는 덜고, 쓰임은 분명하게."
+HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편을 덜어줄 Android와 iPhone 앱을 만듭니다. 필름롤을 비롯한 여덟 가지 일상의 도구를 만나보세요."
+HERO_HEADING = "군더더기는 덜고, 쓰임은 분명하게."
+HERO_PARAGRAPH = "슬기로운 생활은 작은 불편을 덜어줄 일상의 도구를 만듭니다. 필요한 기능을 고르고, 쓰임이 분명하지 않은 것은 덜어냅니다. 생활 속에서 제 역할을 하는 앱을 만듭니다."
 PHILOSOPHY_SUBHEADING = "이것으로 충분하다는 만족감."
-FOOTER_TAGLINE = "일상에 필요한 만큼이면 충분합니다."
+FOOTER_TAGLINE = "군더더기는 덜고, 쓰임은 분명하게."
 
 
 class PageParser(HTMLParser):
@@ -771,8 +788,8 @@ def check_editorial_structure(errors: list[str]) -> None:
     home_parser = PageParser()
     home_parser.feed(home)
     store_count = sum(1 for href, _ in home_parser.hrefs if href in STORE_LINKS)
-    if store_count != 11:
-        fail(errors, f"index.html: expected 11 official store links, found {store_count}")
+    if store_count != 12:
+        fail(errors, f"index.html: expected 12 official store links, found {store_count}")
 
 
 def clean_fragment(fragment: str) -> str:
@@ -1387,8 +1404,8 @@ def check_pages(errors: list[str]) -> None:
         parser = PageParser()
         parser.feed(home.read_text(encoding="utf-8"))
         store_count = sum(1 for href, _ in parser.hrefs if href in STORE_LINKS)
-        if store_count != 11:
-            fail(errors, f"index.html: expected 11 official store links, found {store_count}")
+        if store_count != 12:
+            fail(errors, f"index.html: expected 12 official store links, found {store_count}")
 
 
 def check_http(base: str, errors: list[str]) -> None:
@@ -1409,7 +1426,7 @@ def check_http(base: str, errors: list[str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--http-base", help="also request home, privacy hub, SeoulRoll iOS pages, Business News contact, and all seven detail routes from a running local server")
+    parser.add_argument("--http-base", help="also request home, privacy hub, SeoulRoll iOS pages, Business News contact, and all eight detail routes from a running local server")
     args = parser.parse_args()
     errors: list[str] = []
     check_pages(errors)
@@ -1438,9 +1455,9 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact + SeoulRoll iOS policy/support, 6 local icons, 12 sitemap URLs")
+    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact + SeoulRoll iOS policy/support, 6 local icons, 13 sitemap URLs")
     if args.http_base:
-        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + SeoulRoll iOS policy/support + Business News contact + 7 detail routes")
+        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + SeoulRoll iOS policy/support + Business News contact + 8 detail routes")
     return 0
 
 
