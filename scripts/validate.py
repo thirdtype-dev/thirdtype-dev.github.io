@@ -178,22 +178,22 @@ HOME_FEATURES = [
 ]
 
 PHILOSOPHY_PARAGRAPHS = (
-    "슬기로운 생활은 시각적인 화려함이나 복잡한 기능을 경쟁력으로 삼지 않습니다. 우리가 중요하게 생각하는 것은 사용자가 불편을 느끼는 순간, 망설이지 않고 바로 꺼내 쓸 수 있는 도구를 만드는 일입니다.",
-    "명함을 다시 찾을 때, 현재 속도를 확인하고 싶을 때, 가까운 일정에 집중하고 싶을 때처럼 일상에는 작지만 반복되는 문제들이 있습니다. 거대한 서비스가 필요할 만큼 복잡하진 않지만, 마땅한 도구가 없으면 계속 불편함을 남기는 일들입니다. 우리는 바로 그 지점을 찾아 하나씩 해결합니다.",
-    "하나의 앱에는 하나의 분명한 목적만 담습니다. 필요 이상의 기능을 늘리거나 사용자의 시간을 끌기보다, 필요한 일을 빠르게 마치고 일상으로 돌아갈 수 있도록 설계합니다.",
-    "디자인 역시 눈에 띄기 위한 장식보다 정보의 명확성과 편의성에 집중합니다. 처음 실행해도 설명 없이 이해할 수 있고, 자주 사용해도 피로하지 않은 화면을 지향합니다.",
-    "모든 사람을 위한 거대한 플랫폼보다, 누군가에게 꼭 필요한 작고 구체적인 도구를 꾸준히 만들고 관리합니다.",
+    "우리의 기준은 필요한 일을 해낼 수 있는가입니다. 기능을 더하고 완성도를 끝없이 높이기보다, 생활 속 작은 문제에 쓸 만한 답을 내놓고 싶습니다.",
+    "명함을 다시 찾을 때, 현재 속도를 확인하고 싶을 때, 가까운 일정에 집중하고 싶을 때. 우리는 이런 구체적인 순간에서 앱의 쓰임을 찾습니다.",
+    "필요한 만큼 만들고, 쓰임이 분명하지 않은 기능은 덜어냅니다. 하나의 앱이 생활의 모든 문제를 해결할 필요는 없다고 생각합니다.",
+    "사용성과 디자인은 그 쓰임을 돕는 수단입니다. 모든 면에서 빈틈없는 앱을 목표로 하기보다, 필요한 기능이 제 역할을 하고 일상에 무리 없이 어울리는 정도를 찾습니다.",
+    "쓰면서 드러나는 불편은 실제 필요를 살펴 고쳐갑니다. 더 많은 기능이나 더 근사한 모습이 언제나 더 나은 답은 아니기 때문입니다.",
 )
 
 PHILOSOPHY_PRINCIPLES = (
-    ("문제를 작고 명확하게 정의합니다.", "여러 기능을 섞기보다, 사용자가 해결하려는 단 하나의 본질적 문제에 집중합니다."),
-    ("설명 없이 바로 쓰게 만듭니다.", "번거로운 가입이나 복잡한 학습 과정 없이, 필요한 순간 즉시 사용할 수 있어야 합니다."),
-    ("사용자의 시간을 빼앗지 않습니다.", "앱에 오래 머물게 하기보다, 할 일을 가장 빠르게 끝내주는 것이 우리의 역할입니다."),
-    ("화려함보다 실제 쓰임에 집중합니다.", "유행하는 수식어나 과장된 약속 대신, 앱이 무엇을 해결하는지 분명하게 전달합니다."),
-    ("작은 앱도 꾸준히 관리합니다.", "기능이 단순하더라도 오래 안심하고 사용할 수 있도록 호환성과 안정성을 지속적으로 점검합니다."),
+    ("생활의 구체적인 필요에서 시작합니다.", "어떤 기능을 넣을지보다, 일상의 어느 순간에 이 도구가 필요한지 먼저 생각합니다."),
+    ("필요한 만큼의 기능을 담습니다.", "할 수 있는 일을 모두 넣기보다, 그 쓰임에 필요한 기능을 고릅니다."),
+    ("충분한 지점을 찾습니다.", "사용성과 디자인의 점수를 끝없이 높이기보다, 필요한 일을 해낼 수 있는지를 기준으로 삼습니다."),
+    ("생활에 자연스럽게 어울립니다.", "앱 자체가 눈에 띄기보다, 필요할 때 꺼내 쓰는 익숙한 도구가 되기를 바랍니다."),
+    ("실제 필요에 따라 고쳐갑니다.", "기능을 늘리는 일도, 덜어내는 일도 쓰면서 드러나는 필요를 기준으로 판단합니다."),
 )
 
-PHILOSOPHY_CLOSING = "슬기로운 생활은 거창한 변화를 약속하지 않습니다. 대신 오늘의 작은 불편 하나를 확실하게 줄이는 앱을 만듭니다."
+PHILOSOPHY_CLOSING = "필요한 순간에 제 역할을 하고, 이것으로 충분하다고 느낄 수 있는 앱. 슬기로운 생활이 만들고 싶은 도구입니다."
 
 EXPECTED_ROUTES = [
     "apps/carrotcard/",
@@ -311,6 +311,13 @@ PROHIBITED_TERMS = (
     "정부 문서",
     "정부문서",
 )
+
+HOME_TITLE = "슬기로운 생활 — 일상에 필요한 만큼이면 충분합니다"
+HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편에 필요한 만큼의 기능을 담은 Android와 iPhone 앱을 만듭니다. 일곱 가지 일상의 도구를 만나보세요."
+HERO_HEADING = "일상에 필요한 만큼이면 충분합니다"
+HERO_PARAGRAPH = "슬기로운 생활은 작은 불편을 덜어줄 일상의 도구를 만듭니다. 필요한 기능을 담고, 생활에 자연스럽게 어울리며, 제 역할을 하는 앱이면 충분하다고 생각합니다."
+PHILOSOPHY_SUBHEADING = "이것으로 충분하다는 만족감."
+FOOTER_TAGLINE = "일상에 필요한 만큼이면 충분합니다."
 
 
 class PageParser(HTMLParser):
@@ -636,8 +643,26 @@ def check_editorial_structure(errors: list[str]) -> None:
     home = home_path.read_text(encoding="utf-8")
     not_found = not_found_path.read_text(encoding="utf-8") if not_found_path.is_file() else ""
     css = css_path.read_text(encoding="utf-8")
-    if "작은 불편 하나도 가볍게 넘기지 않습니다" not in home:
-        fail(errors, "index.html: missing homepage hero heading")
+    home_parser = PageParser()
+    home_parser.feed(home)
+    if home_parser.title != HOME_TITLE:
+        fail(errors, "index.html: homepage title mismatch")
+    if home_parser.description != HOME_DESCRIPTION:
+        fail(errors, "index.html: homepage meta description mismatch")
+    for key in ("og:title", "twitter:title"):
+        if home_parser.meta.get((key, "content")) != HOME_TITLE:
+            fail(errors, f"index.html: {key} mismatch")
+    for key in ("og:description", "twitter:description"):
+        if home_parser.meta.get((key, "content")) != HOME_DESCRIPTION:
+            fail(errors, f"index.html: {key} mismatch")
+    if home_parser.h1 != [HERO_HEADING]:
+        fail(errors, "index.html: homepage hero heading mismatch")
+    hero_match = re.search(r'<h1 id="hero-title">([^<]+)</h1>\s*<p>([^<]+)</p>', home, re.DOTALL)
+    if not hero_match or unescape(hero_match.group(2)) != HERO_PARAGRAPH:
+        fail(errors, "index.html: homepage hero paragraph mismatch")
+    footer_brand_match = re.search(r'<div class="footer-brand">.*?<p>([^<]+)</p>', home, re.DOTALL)
+    if not footer_brand_match or unescape(footer_brand_match.group(1)) != FOOTER_TAGLINE:
+        fail(errors, "index.html: footer brand tagline mismatch")
     if "#f5f3ee" not in css.lower() or "#0a0a0a" not in css.lower():
         fail(errors, "assets/site.css: r2 warm-white/black palette is missing")
     check_radius_guard(css, errors)
@@ -674,7 +699,7 @@ def check_editorial_structure(errors: list[str]) -> None:
         if not heading or unescape(heading.group(1)) != "우리가 추구하는 것":
             fail(errors, "index.html: philosophy heading mismatch")
         subheading = re.search(r'<p class="philosophy-subheading">([^<]+)</p>', philosophy)
-        if not subheading or unescape(subheading.group(1)) != "생활 속 작은 문제를, 바로 쓸 수 있는 도구로 해결합니다.":
+        if not subheading or unescape(subheading.group(1)) != PHILOSOPHY_SUBHEADING:
             fail(errors, "index.html: philosophy subheading mismatch")
         for paragraph in PHILOSOPHY_PARAGRAPHS:
             if philosophy.count(paragraph) != 1 or home.count(paragraph) != 1:
