@@ -184,7 +184,7 @@ HOME_FEATURES = [
     {
         "slug": "filmroll",
         "number": "08",
-        "name": "필름롤",
+        "name": "서울롤",
         "lede": "사진을 필름 롤 콜라주로 만들고, 서울 감성 필터와 레트로 타임스탬프로 기록하세요.",
         "platform": "Android",
         "detail": "apps/filmroll/",
@@ -330,7 +330,7 @@ PROHIBITED_TERMS = (
 )
 
 HOME_TITLE = "슬기로운 생활 — 군더더기는 덜고, 쓰임은 분명하게."
-HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편을 덜어줄 Android와 iPhone 앱을 만듭니다. 필름롤을 비롯한 여덟 가지 일상의 도구를 만나보세요."
+HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편을 덜어줄 Android와 iPhone 앱을 만듭니다. 서울롤을 비롯한 여덟 가지 일상의 도구를 만나보세요."
 HERO_HEADING = "군더더기는 덜고, 쓰임은 분명하게."
 HERO_PARAGRAPH = "슬기로운 생활은 작은 불편을 덜어줄 일상의 도구를 만듭니다. 필요한 기능을 고르고, 쓰임이 분명하지 않은 것은 덜어냅니다. 생활 속에서 제 역할을 하는 앱을 만듭니다."
 PHILOSOPHY_SUBHEADING = "이것으로 충분하다는 만족감."
