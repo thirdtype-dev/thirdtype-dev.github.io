@@ -721,6 +721,25 @@ def check_editorial_structure(errors: list[str]) -> None:
             fail(errors, f"index.html/assets/site.css: former disconnected structure remains: {legacy}")
     if "app-feature:nth-child(even)" not in css or "grid-template-columns: 1fr" not in css:
         fail(errors, "assets/site.css: paired feature sections lack responsive alternating/single-column rules")
+    feature_body = css_rule_body(css, ".app-feature")
+    if not re.search(
+        r"\bgrid-template-columns\s*:\s*minmax\(0,\s*0\.8fr\)\s+minmax\(0,\s*1\.2fr\)\s*;",
+        feature_body,
+    ):
+        fail(errors, "assets/site.css: default app-feature tracks must remain 0.8fr/1.2fr")
+    even_feature_body = css_rule_body(css, ".app-feature:nth-child(even)")
+    if not re.search(
+        r"\bgrid-template-columns\s*:\s*minmax\(0,\s*1\.2fr\)\s+minmax\(0,\s*0\.8fr\)\s*;",
+        even_feature_body,
+    ):
+        fail(errors, "assets/site.css: even app-feature tracks must reverse to 1.2fr/0.8fr")
+    responsive_css = css_media_body(css, "max-width: 850px")
+    if not re.search(
+        r"\.app-feature:nth-child\(even\)\s*\{[^}]*\bgrid-template-columns\s*:\s*1fr\s*;",
+        responsive_css,
+        re.DOTALL,
+    ):
+        fail(errors, "assets/site.css: even app-feature tracks must collapse to one column responsively")
     if "about-band" in home or "about-band" in css:
         fail(errors, "index.html/assets/site.css: former about-band remains")
     if ".company-philosophy" not in css or ".principle-list" not in css:

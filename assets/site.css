@@ -289,6 +289,10 @@ h3 {
   grid-row: 1;
 }
 
+.app-feature:nth-child(even) {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+}
+
 .app-feature:nth-child(even) .app-feature-shots {
   grid-column: 1;
   grid-row: 1;
@@ -745,6 +749,10 @@ h3 {
   .app-feature {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+
+  .app-feature:nth-child(even) {
+    grid-template-columns: 1fr;
   }
 
   .app-feature:nth-child(even) .app-feature-copy,
