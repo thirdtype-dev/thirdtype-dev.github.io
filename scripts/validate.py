@@ -691,6 +691,9 @@ def check_editorial_structure(errors: list[str]) -> None:
     css = css_path.read_text(encoding="utf-8")
     home_parser = PageParser()
     home_parser.feed(home)
+    stylesheet_hrefs = re.findall(r'<link\s+rel="stylesheet"\s+href="([^"]+)"', home)
+    if stylesheet_hrefs != ["assets/site.css?v=d5799d2"]:
+        fail(errors, "index.html: homepage stylesheet must use assets/site.css?v=d5799d2")
     if home_parser.title != HOME_TITLE:
         fail(errors, "index.html: homepage title mismatch")
     if home_parser.description != HOME_DESCRIPTION:
