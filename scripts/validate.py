@@ -630,22 +630,51 @@ def css_media_body(css: str, query: str) -> str:
 
 
 def check_detail_shot_sizes(css: str, errors: list[str]) -> None:
-    expected_widths = {
-        "base": (css_rule_body(css, ".detail-shot"), r"clamp\(\s*280px\s*,\s*34vw\s*,\s*420px\s*\)"),
-        "max-width: 850px": (css_rule_body(css_media_body(css, "max-width: 850px"), ".detail-shot"), r"clamp\(\s*260px\s*,\s*54vw\s*,\s*380px\s*\)"),
-        "max-width: 560px": (css_rule_body(css_media_body(css, "max-width: 560px"), ".detail-shot"), r"min\(\s*82vw\s*,\s*340px\s*\)"),
-    }
-    for scope, (body, width_pattern) in expected_widths.items():
-        if not body or not re.search(rf"\bwidth\s*:\s*{width_pattern}\s*;", body):
-            fail(errors, f"assets/site.css: .detail-shot {scope} width contract is missing or changed")
-    if "min(72vw, 930px)" in css or "min(78vw, 720px)" in css:
-        fail(errors, "assets/site.css: legacy 930px/720px detail-shot width remains")
-    if re.search(r"(?s)\.detail-shot\s*\{[^}]*\bwidth\s*:\s*90vw\s*;", css):
-        fail(errors, "assets/site.css: legacy 90vw detail-shot width remains")
-    if not re.search(r"\.detail-shot:nth-child\(even\)\s*\{[^}]*margin-left\s*:\s*auto\s*;", css, re.DOTALL):
-        fail(errors, "assets/site.css: second detail screenshot must remain right-aligned")
+    gallery_body = css_rule_body(css, ".detail-gallery")
+    if not gallery_body:
+        fail(errors, "assets/site.css: .detail-gallery rule is missing")
+    else:
+        gallery_contracts = (
+            (r"\bdisplay\s*:\s*flex\s*;", "display:flex"),
+            (r"\boverflow-x\s*:\s*auto\s*;", "overflow-x:auto"),
+            (r"\bscroll-snap-type\s*:\s*x\s+proximity\s*;", "scroll-snap-type:x proximity"),
+        )
+        for pattern, label in gallery_contracts:
+            if not re.search(pattern, gallery_body):
+                fail(errors, f"assets/site.css: .detail-gallery must declare {label}")
+
+    shot_body = css_rule_body(css, ".detail-shot")
+    for pattern, label in (
+        (r"\bflex\s*:\s*0\s+0\s+auto\s*;", "flex:0 0 auto"),
+        (r"\bwidth\s*:\s*auto\s*;", "width:auto"),
+        (r"\bscroll-snap-align\s*:\s*start\s*;", "scroll-snap-align:start"),
+    ):
+        if not re.search(pattern, shot_body):
+            fail(errors, f"assets/site.css: .detail-shot must declare {label}")
+
+    shot_image_body = css_rule_body(css, ".detail-shot img")
+    for pattern, label in (
+        (r"\bwidth\s*:\s*auto\s*;", "width:auto"),
+        (r"\bmax-width\s*:\s*none\s*;", "max-width:none"),
+        (r"\bheight\s*:\s*clamp\(\s*28rem\s*,\s*62vh\s*,\s*40rem\s*\)\s*;", "bounded shared height"),
+    ):
+        if not re.search(pattern, shot_image_body):
+            fail(errors, f"assets/site.css: .detail-shot img must declare {label}")
+
+    if re.search(r"\.detail-shot:nth-child\(even\)\s*\{[^}]*margin-left\s*:\s*auto\s*;", css, re.DOTALL):
+        fail(errors, "assets/site.css: alternating detail screenshot offset remains")
     if re.search(r"\.detail-shot:nth-child\(even\)\s*\{[^}]*margin-left\s*:\s*10vw\s*;", css, re.DOTALL):
         fail(errors, "assets/site.css: mobile detail screenshot alignment must not use the legacy 10vw offset")
+
+    store_body = css_rule_body(css, ".store-link")
+    for pattern, label in (
+        (r"\bmin-height\s*:\s*44px\s*;", "min-height:44px"),
+        (r"\bborder\s*:\s*1px\s+solid\s+var\(--ink\)\s*;", "outlined control"),
+        (r"\btext-decoration\s*:\s*none\s*;", "text-decoration:none"),
+    ):
+        if not re.search(pattern, store_body):
+            fail(errors, f"assets/site.css: .store-link must declare {label}")
+
     feature_body = css_rule_body(css, ".app-feature-shot img")
     if not re.search(r"\bwidth\s*:\s*100%\s*;", feature_body):
         fail(errors, "assets/site.css: homepage app-feature screenshot width contract changed")
@@ -1383,9 +1412,32 @@ def check_pages(errors: list[str]) -> None:
                     fail(errors, f"{relative}: detail screenshots must use loading=lazy and decoding=async: {image.get('src', '<missing>')}")
             page_text = path.read_text(encoding="utf-8")
             if len(re.findall(r'class="detail-shot"', page_text)) != 3:
-                fail(errors, f"{relative}: expected three alternating detail-shot figures")
-            if "detail-shot:nth-child(even)" not in (ROOT / "assets" / "site.css").read_text(encoding="utf-8"):
-                fail(errors, "assets/site.css: detail gallery is missing alternating editorial flow")
+                fail(errors, f"{relative}: expected exactly three detail-shot figures")
+            gallery_match = re.search(r'<section class="detail-gallery" aria-label="([^"]+)" tabindex="0">', page_text)
+            if not gallery_match:
+                fail(errors, f"{relative}: detail gallery must retain its aria-label and be keyboard focusable")
+            else:
+                intro_end = page_text.find("</section>", page_text.find('<section class="detail-intro"'))
+                gallery_start = page_text.find('<section class="detail-gallery"')
+                if intro_end < 0 or gallery_start < 0 or gallery_start < intro_end:
+                    fail(errors, f"{relative}: detail gallery must remain directly after the detail intro")
+
+            store_action_matches = re.findall(
+                r'<a class="store-link" href="([^"]+)"[^>]*>(.*?)</a>',
+                page_text,
+                re.DOTALL,
+            )
+            expected_store_links = tuple(
+                href for href, _ in parser.hrefs if href in STORE_LINKS and STORE_LINKS[href] == slug
+            )
+            actual_store_links = tuple(href for href, _ in store_action_matches)
+            if actual_store_links != expected_store_links:
+                fail(errors, f"{relative}: visible store action mapping differs from official store mapping")
+            for href, label_fragment in store_action_matches:
+                label = clean_fragment(label_fragment)
+                expected_label = "Google Play에서 보기" if "play.google.com" in href else "App Store에서 보기"
+                if label != expected_label:
+                    fail(errors, f"{relative}: store action label must be {expected_label}: {label}")
         for href, attrs in parser.hrefs:
             if href in STORE_LINKS:
                 if attrs.get("target") != "_blank" or "noopener" not in attrs.get("rel", "") or "noreferrer" not in attrs.get("rel", ""):
