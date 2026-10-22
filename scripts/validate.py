@@ -50,9 +50,13 @@ SCREENSHOT_DIMENSIONS = {
     "filmroll/01.png": (1080, 1920),
     "filmroll/02.png": (1080, 1920),
     "filmroll/03.png": (1080, 1920),
+    "genius-recorder/01.png": (1080, 1920),
+    "genius-recorder/02.png": (1080, 1920),
+    "genius-recorder/03.png": (1080, 1920),
+
 }
 
-SCREENSHOT_SLUGS = tuple(slug for slug in ("carrotcard", "maedo-signal", "gps-speed-go", "ttcal", "retro-timestamp", "motion-ease", "business-news", "filmroll"))
+SCREENSHOT_SLUGS = tuple(slug for slug in ("carrotcard", "maedo-signal", "gps-speed-go", "ttcal", "retro-timestamp", "motion-ease", "business-news", "filmroll", "genius-recorder"))
 
 PROHIBITED_MOTIFS = (
     ".app-card",
@@ -97,6 +101,9 @@ STORE_LINKS = {
     BUSINESS_NEWS_PLAY_URL: "business-news",
     BUSINESS_NEWS_APPLE_URL: "business-news",
     FILMROLL_PLAY_URL: "filmroll",
+    'https://apps.apple.com/kr/app/id6805308006': "filmroll",
+    'https://play.google.com/store/apps/details?id=com.thirdtype.geniusrec&hl=ko&gl=KR': "genius-recorder",
+    'https://apps.apple.com/kr/app/id6821803429': "genius-recorder",
 }
 
 DETAIL_LINK_COUNTS = {
@@ -107,7 +114,8 @@ DETAIL_LINK_COUNTS = {
     "retro-timestamp": 1,
     "motion-ease": 1,
     "business-news": 2,
-    "filmroll": 1,
+    "filmroll": 2,
+    "genius-recorder": 2,
 }
 
 HOME_FEATURES = [
@@ -186,11 +194,12 @@ HOME_FEATURES = [
         "number": "08",
         "name": "서울롤",
         "lede": "사진을 필름 롤 콜라주로 만들고, 서울 감성 필터와 레트로 타임스탬프로 기록하세요.",
-        "platform": "Android",
+        "platform": "Android · iPhone",
         "detail": "apps/filmroll/",
         "screenshots": ("assets/screenshots/filmroll/01.png", "assets/screenshots/filmroll/02.png"),
-        "stores": (FILMROLL_PLAY_URL,),
+        "stores": (FILMROLL_PLAY_URL, 'https://apps.apple.com/kr/app/id6805308006'),
     },
+    {'slug': 'genius-recorder', 'number': '09', 'name': '천재 녹음기', 'lede': '회의·장소·날짜별로 녹음을 정리하고, 필요한 순간에 직접 녹음·재생·공유하는 음성 기록 도구입니다.', 'platform': 'Android · iPhone', 'detail': 'apps/genius-recorder/', 'screenshots': ('assets/screenshots/genius-recorder/01.png', 'assets/screenshots/genius-recorder/02.png'), 'stores': ('https://play.google.com/store/apps/details?id=com.thirdtype.geniusrec&hl=ko&gl=KR', 'https://apps.apple.com/kr/app/id6821803429')},
 ]
 
 PHILOSOPHY_PARAGRAPHS = (
@@ -220,6 +229,7 @@ EXPECTED_ROUTES = [
     "apps/motion-ease/",
     "apps/business-news/",
     "apps/filmroll/",
+    "apps/genius-recorder/",
 ]
 
 PRIVACY_POLICY_ROUTE = "privacy-policy/"
@@ -330,7 +340,7 @@ PROHIBITED_TERMS = (
 )
 
 HOME_TITLE = "슬기로운 생활 — 군더더기는 덜고, 쓰임은 분명하게."
-HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편을 덜어줄 Android와 iPhone 앱을 만듭니다. 서울롤을 비롯한 여덟 가지 일상의 도구를 만나보세요."
+HOME_DESCRIPTION = "슬기로운 생활은 생활의 작은 불편을 덜어줄 Android와 iPhone 앱을 만듭니다. 천재 녹음기와 서울롤을 비롯한 아홉 가지 일상의 도구를 만나보세요."
 HERO_HEADING = "군더더기는 덜고, 쓰임은 분명하게."
 HERO_PARAGRAPH = "슬기로운 생활은 작은 불편을 덜어줄 일상의 도구를 만듭니다. 필요한 기능을 고르고, 쓰임이 분명하지 않은 것은 덜어냅니다. 생활 속에서 제 역할을 하는 앱을 만듭니다."
 PHILOSOPHY_SUBHEADING = "이것으로 충분하다는 만족감."
@@ -839,8 +849,8 @@ def check_editorial_structure(errors: list[str]) -> None:
     home_parser = PageParser()
     home_parser.feed(home)
     store_count = sum(1 for href, _ in home_parser.hrefs if href in STORE_LINKS)
-    if store_count != 12:
-        fail(errors, f"index.html: expected 12 official store links, found {store_count}")
+    if store_count != 15:
+        fail(errors, f"index.html: expected 15 official store links, found {store_count}")
 
 
 def clean_fragment(fragment: str) -> str:
@@ -1452,7 +1462,7 @@ def check_pages(errors: list[str]) -> None:
             expected_store_links = tuple(
                 href for href, _ in parser.hrefs if href in STORE_LINKS and STORE_LINKS[href] == slug
             )
-            actual_store_links = tuple(href for href, _ in store_action_matches)
+            actual_store_links = tuple(unescape(href) for href, _ in store_action_matches)
             if actual_store_links != expected_store_links:
                 fail(errors, f"{relative}: visible store action mapping differs from official store mapping")
             for href, label_fragment in store_action_matches:
@@ -1478,8 +1488,8 @@ def check_pages(errors: list[str]) -> None:
         parser = PageParser()
         parser.feed(home.read_text(encoding="utf-8"))
         store_count = sum(1 for href, _ in parser.hrefs if href in STORE_LINKS)
-        if store_count != 12:
-            fail(errors, f"index.html: expected 12 official store links, found {store_count}")
+        if store_count != 15:
+            fail(errors, f"index.html: expected 15 official store links, found {store_count}")
 
 
 def check_http(base: str, errors: list[str]) -> None:
@@ -1500,7 +1510,7 @@ def check_http(base: str, errors: list[str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--http-base", help="also request home, privacy hub, SeoulRoll iOS pages, Business News contact, and all eight detail routes from a running local server")
+    parser.add_argument("--http-base", help="also request home, privacy hub, SeoulRoll iOS pages, Business News contact, and all nine detail routes from a running local server")
     args = parser.parse_args()
     errors: list[str] = []
     check_pages(errors)
@@ -1529,9 +1539,9 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact + SeoulRoll iOS policy/support, 6 local icons, 13 sitemap URLs")
+    print(f"VALIDATION PASSED: {len(page_files())} canonical HTML pages + Business News contact + SeoulRoll iOS policy/support, 6 local icons, 14 sitemap URLs")
     if args.http_base:
-        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + SeoulRoll iOS policy/support + Business News contact + 8 detail routes")
+        print(f"HTTP SMOKE PASSED: {args.http_base.rstrip('/')}/ + privacy hub + SeoulRoll iOS policy/support + Business News contact + 9 detail routes")
     return 0
 
 
